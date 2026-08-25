@@ -92,5 +92,5 @@
 - [x] Push repository to GitHub/GitLab.
 - [x] Connect repository to Vercel (Free Tier), set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` as Vercel environment variables.
 - [x] Trigger production deploy, verify build succeeds with zero TypeScript/ESLint errors.
-- [ ] Smoke-test the live Vercel URL: home page loads, shop page loads with real products, product detail + Order button opens WhatsApp correctly, admin login works, admin can add/edit/toggle a product live.
+- [x] Smoke-test the live Vercel URL: home page loads, shop page loads with real products, product detail + Order button opens WhatsApp correctly, admin login works, admin can add/edit/toggle a product live.
 - [ ] Hand off the Vercel production URL to the client for DNS pointing (client's nephew handles domain registration/DNS — out of scope for the agent).
