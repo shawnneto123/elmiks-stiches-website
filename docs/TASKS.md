@@ -89,7 +89,7 @@
 
 ## Final Deployment Checklist (Post-Phase 5)
 
-- [ ] Push repository to GitHub/GitLab.
+- [x] Push repository to GitHub/GitLab.
 - [ ] Connect repository to Vercel (Free Tier), set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` as Vercel environment variables.
 - [ ] Trigger production deploy, verify build succeeds with zero TypeScript/ESLint errors.
 - [ ] Smoke-test the live Vercel URL: home page loads, shop page loads with real products, product detail + Order button opens WhatsApp correctly, admin login works, admin can add/edit/toggle a product live.
