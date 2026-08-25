@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -18,10 +18,25 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close mobile menu whenever the route changes
+  // Close mobile menu whenever route changes
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
+
+  // Handle ESC key to close mobile menu
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape" && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    },
+    [mobileMenuOpen]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
 
   // Lock body scroll when mobile full-screen drawer is active
   useEffect(() => {
@@ -43,9 +58,8 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-100 transition-colors">
-        {/* On < md, uses px-4 py-3 with justify-between; on md+, uses px-10 h-20 */}
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-3 md:px-10 md:h-20">
-          {/* Brand Logo & Wordmark (Constrained max-height h-8 on mobile) */}
+          {/* Brand Logo & Wordmark */}
           <Link
             href="/"
             className="flex items-center gap-2.5 group focus:outline-none py-1"
@@ -99,12 +113,12 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile Hamburger Menu Button */}
+          {/* Mobile Hamburger Menu Button (Min 44x44px touch target) */}
           <div className="md:hidden flex items-center">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="p-2 rounded-lg text-neutral-900 hover:bg-neutral-100 active:scale-95 transition-all focus:outline-none"
+              className="min-h-[44px] min-w-[44px] p-2.5 rounded-lg text-neutral-900 hover:bg-neutral-100 active:scale-95 transition-all focus:outline-none flex items-center justify-center"
               aria-label="Open navigation menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -134,12 +148,13 @@ export function Header() {
           aria-modal="true"
           aria-label="Mobile Navigation Drawer"
         >
-          {/* Drawer Top Header (matching px-4 py-3) */}
+          {/* Drawer Top Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-100">
             <Link
               href="/"
               className="flex items-center gap-2.5"
               onClick={() => setMobileMenuOpen(false)}
+              aria-label="Elmik Stitches Home"
             >
               <div className="relative h-8 w-8 rounded-md overflow-hidden bg-black flex-shrink-0">
                 <Image
@@ -155,11 +170,11 @@ export function Header() {
               </span>
             </Link>
 
-            {/* Clear Close ("X") Button at Top Right */}
+            {/* Close ("X") Button (Min 44x44px touch target) */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-full text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 transition focus:outline-none"
+              className="min-h-[44px] min-w-[44px] p-2.5 rounded-full text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 transition focus:outline-none flex items-center justify-center"
               aria-label="Close navigation menu"
             >
               <svg
@@ -178,7 +193,7 @@ export function Header() {
             </button>
           </div>
 
-          {/* Stacked Navigation Links with py-3 text-lg font-medium border-b border-neutral-100 */}
+          {/* Stacked Navigation Links with generous min 48px touch targets */}
           <div className="px-6 py-6 flex-1 flex flex-col justify-start">
             <nav className="flex flex-col" aria-label="Mobile Drawer Navigation">
               {NAV_LINKS.map((link) => {
@@ -191,7 +206,7 @@ export function Header() {
                     key={link.name}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`py-3.5 text-lg font-medium border-b border-neutral-100 flex items-center justify-between transition-colors ${
+                    className={`min-h-[48px] py-3.5 text-lg font-medium border-b border-neutral-100 flex items-center justify-between transition-colors ${
                       isActive
                         ? "text-brand-accent font-semibold"
                         : "text-neutral-800 hover:text-neutral-900"
@@ -216,13 +231,13 @@ export function Header() {
             <Link
               href="/custom-order"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center rounded-full bg-neutral-900 text-white py-3.5 text-sm font-semibold hover:bg-neutral-800 transition active:scale-98 shadow-sm text-center"
+              className="w-full min-h-[48px] flex items-center justify-center rounded-full bg-neutral-900 text-white py-3.5 text-sm font-semibold hover:bg-neutral-800 transition active:scale-98 shadow-sm text-center"
             >
               Request Custom Outfit
             </Link>
 
             <div className="pt-2 text-xs text-neutral-500 space-y-1 text-center font-light">
-              <p>Abuja Studio • {BRAND.storeHours}</p>
+              <p>Abuja Studio &bull; {BRAND.storeHours}</p>
               <a
                 href={BRAND.instagramUrl}
                 target="_blank"

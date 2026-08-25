@@ -26,6 +26,14 @@ export const metadata: Metadata = {
   },
   description:
     "Discover high-end ready-to-wear pieces and bespoke tailoring from Elmik Stitches, Abuja. Order directly via WhatsApp.",
+  icons: {
+    icon: [
+      { url: "/logo.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/logo.png", type: "image/png" },
+    ],
+  },
   openGraph: {
     type: "website",
     siteName: "Elmik Stitches",
@@ -56,10 +64,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="min-h-screen bg-white text-neutral-900 antialiased font-sans flex flex-col">
+    <html
+      lang="en"
+      className={`${playfair.variable} ${inter.variable} w-full max-w-full overflow-x-hidden`}
+    >
+      <body className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-neutral-900 antialiased font-sans flex flex-col">
         <Header />
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 w-full max-w-full flex flex-col min-w-0 overflow-x-hidden">
           {children}
         </div>
         <Footer />

@@ -13,11 +13,11 @@ interface OrderButtonProps {
 export function OrderButton({ orderDetails, inStock, disabled }: OrderButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (disabled || isLoading) return;
     setIsLoading(true);
     try {
-      const url = getWhatsAppOrderUrl({
+      const url = await getWhatsAppOrderUrl({
         ...orderDetails,
         isRestockRequest: !inStock,
       });
@@ -33,7 +33,7 @@ export function OrderButton({ orderDetails, inStock, disabled }: OrderButtonProp
         type="button"
         onClick={handleClick}
         disabled={disabled || isLoading}
-        className="w-full sm:w-auto rounded-full border-2 border-brand-accent text-brand-accent hover:bg-brand-accent/10 px-8 py-3.5 text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed text-center"
+        className="w-full sm:w-auto rounded-full border-2 border-brand-accent text-brand-accent hover:bg-brand-accent/10 px-8 py-3.5 text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed text-center active:scale-98"
       >
         {isLoading ? "Connecting..." : "Request Restock via WhatsApp"}
       </button>
@@ -45,7 +45,7 @@ export function OrderButton({ orderDetails, inStock, disabled }: OrderButtonProp
       type="button"
       onClick={handleClick}
       disabled={disabled || isLoading}
-      className="w-full sm:w-auto rounded-full bg-brand-accent hover:bg-brand-accentHover text-white px-8 py-3.5 text-sm font-semibold transition-all shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed text-center"
+      className="w-full sm:w-auto rounded-full bg-brand-accent hover:bg-brand-accent-hover text-white px-8 py-3.5 text-sm font-semibold transition-all shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed text-center active:scale-98"
     >
       {isLoading ? "Connecting..." : "Order via WhatsApp"}
     </button>

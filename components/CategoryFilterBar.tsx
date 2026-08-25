@@ -16,7 +16,7 @@ export function CategoryFilterBar({ activeCategory }: CategoryFilterBarProps) {
       >
         <Link
           href="/shop"
-          className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-all active:scale-95 flex items-center justify-center ${
+          className={`shrink-0 rounded-full min-h-[40px] px-4 py-2 text-xs sm:text-sm font-medium transition-all active:scale-95 flex items-center justify-center ${
             !activeCategory
               ? "bg-brand-accent text-white shadow-xs font-semibold"
               : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 hover:text-neutral-900"
@@ -30,7 +30,7 @@ export function CategoryFilterBar({ activeCategory }: CategoryFilterBarProps) {
             <Link
               key={category}
               href={`/shop/${encodeURIComponent(category.toLowerCase())}`}
-              className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-all active:scale-95 flex items-center justify-center ${
+              className={`shrink-0 rounded-full min-h-[40px] px-4 py-2 text-xs sm:text-sm font-medium transition-all active:scale-95 flex items-center justify-center ${
                 isActive
                   ? "bg-brand-accent text-white shadow-xs font-semibold"
                   : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 hover:text-neutral-900"

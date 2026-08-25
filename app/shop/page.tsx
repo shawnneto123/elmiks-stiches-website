@@ -25,7 +25,7 @@ export default async function ShopPage() {
   const allProducts: Product[] = (products as Product[]) ?? [];
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-8 md:py-12">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-8 md:py-12 w-full max-w-full overflow-x-hidden min-w-0">
       <div className="mb-8">
         <h1 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 mb-2">
           Shop All Pieces

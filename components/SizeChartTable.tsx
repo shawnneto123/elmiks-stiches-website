@@ -94,9 +94,9 @@ export function SizeChartTable() {
   const currentSizeRow = SIZE_DATA.find((r) => r.size === activeSizeTab) ?? SIZE_DATA[1];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full max-w-full overflow-hidden">
       {/* Top Controls: Unit Segmented Tabs + View Toggle */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full">
         <span className="text-xs text-neutral-500 font-semibold uppercase tracking-wider">
           Measurement Unit
         </span>
@@ -142,9 +142,9 @@ export function SizeChartTable() {
       </div>
 
       {/* 1. Mobile Interactive Size Tabs & Detail Card */}
-      <div className={`${viewMode === "table" ? "hidden" : "block"} sm:hidden space-y-4`}>
+      <div className={`${viewMode === "table" ? "hidden" : "block"} sm:hidden space-y-4 w-full min-w-0`}>
         {/* Horizontal Size Tabs */}
-        <div className="-mx-2 px-2 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none touch-pan-x">
+        <div className="w-full flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none touch-pan-x">
           {SIZES.map((size) => {
             const isActive = activeSizeTab === size;
             return (
@@ -152,7 +152,7 @@ export function SizeChartTable() {
                 key={size}
                 type="button"
                 onClick={() => setActiveSizeTab(size)}
-                className={`flex-1 min-w-[54px] min-h-[44px] py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center active:scale-95 ${
+                className={`flex-1 min-w-[50px] min-h-[44px] py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center active:scale-95 ${
                   isActive
                     ? "bg-brand-accent text-white shadow-xs"
                     : "bg-white text-neutral-600 border border-neutral-200 hover:border-neutral-400"
@@ -165,7 +165,7 @@ export function SizeChartTable() {
         </div>
 
         {/* Selected Size Breakdown Card */}
-        <div className="bg-white rounded-2xl p-5 border border-neutral-200 shadow-xs space-y-4">
+        <div className="bg-white rounded-2xl p-5 border border-neutral-200 shadow-xs space-y-4 w-full min-w-0">
           <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
             <div>
               <span className="text-[10px] uppercase font-bold tracking-widest text-brand-accent">
@@ -181,31 +181,31 @@ export function SizeChartTable() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 text-xs">
-            <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-100">
-              <span className="text-neutral-500 block mb-1">Bust / Chest</span>
-              <strong className="text-sm text-neutral-900">
+          <div className="grid grid-cols-2 gap-3 text-xs w-full">
+            <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-100 min-w-0">
+              <span className="text-neutral-500 block mb-1 truncate">Bust / Chest</span>
+              <strong className="text-sm text-neutral-900 block truncate">
                 {unit === "in" ? currentSizeRow.bustIn : currentSizeRow.bustCm}
               </strong>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-100">
-              <span className="text-neutral-500 block mb-1">Natural Waist</span>
-              <strong className="text-sm text-neutral-900">
+            <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-100 min-w-0">
+              <span className="text-neutral-500 block mb-1 truncate">Natural Waist</span>
+              <strong className="text-sm text-neutral-900 block truncate">
                 {unit === "in" ? currentSizeRow.waistIn : currentSizeRow.waistCm}
               </strong>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-100">
-              <span className="text-neutral-500 block mb-1">Hips</span>
-              <strong className="text-sm text-neutral-900">
+            <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-100 min-w-0">
+              <span className="text-neutral-500 block mb-1 truncate">Hips</span>
+              <strong className="text-sm text-neutral-900 block truncate">
                 {unit === "in" ? currentSizeRow.hipsIn : currentSizeRow.hipsCm}
               </strong>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-100">
-              <span className="text-neutral-500 block mb-1">Garment Length</span>
-              <strong className="text-sm text-neutral-900">
+            <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-100 min-w-0">
+              <span className="text-neutral-500 block mb-1 truncate">Garment Length</span>
+              <strong className="text-sm text-neutral-900 block truncate">
                 {unit === "in" ? currentSizeRow.lengthIn : currentSizeRow.lengthCm}
               </strong>
             </div>
@@ -214,8 +214,8 @@ export function SizeChartTable() {
       </div>
 
       {/* 2. Full Matrix Table (Always visible on desktop, toggleable on mobile) */}
-      <div className={`${viewMode === "cards" ? "hidden sm:block" : "block"}`}>
-        <div className="overflow-x-auto rounded-xl border border-neutral-200 bg-white scrollbar-none touch-pan-x">
+      <div className={`${viewMode === "cards" ? "hidden sm:block" : "block"} w-full min-w-0`}>
+        <div className="overflow-x-auto rounded-xl border border-neutral-200 bg-white scrollbar-none touch-pan-x w-full max-w-full">
           <table className="w-full text-left border-collapse text-xs sm:text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-neutral-50 border-b border-neutral-200 text-neutral-600 font-medium">

@@ -30,11 +30,10 @@ export async function updateSession(request: NextRequest) {
   );
 
   // IMPORTANT: Avoid writing any logic between createServerClient and
-  // supabase.auth.getUser(). A simple mistake could make it very hard to debug
-  // issues with users being randomly logged out.
-
-  // Admin route protection:
+  // supabase.auth.getUser().
   const pathname = request.nextUrl.pathname;
+
+  // Protect all /admin routes except /admin/login
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
     try {
       const {
@@ -47,13 +46,28 @@ export async function updateSession(request: NextRequest) {
         return NextResponse.redirect(url);
       }
     } catch {
-      // If Supabase connection fails or credentials are placeholder, redirect to login
       const url = request.nextUrl.clone();
       url.pathname = "/admin/login";
       return NextResponse.redirect(url);
     }
   }
 
+  // If already authenticated and visiting /admin/login, redirect to /admin
+  if (pathname === "/admin/login") {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/admin";
+        return NextResponse.redirect(url);
+      }
+    } catch {
+      // Continue to login page if check fails
+    }
+  }
+
   return supabaseResponse;
 }
-

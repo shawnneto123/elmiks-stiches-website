@@ -1,20 +1,28 @@
 import { OrderDetails } from "../types";
 import { formatNaira } from "../utils/currency";
+import { createClient } from "../supabase/client";
 
-// Single Source of Truth for WhatsApp contact numbers
-export const WHATSAPP_NUMBERS = ["2348075514345", "2348033109393"] as const; // E.164 format, no leading 0, prefixed with 234
+/**
+ * WhatsApp Round-Robin Load Balancer
+ * 
+ * Single Source of Truth for Elmik Stitches WhatsApp contact numbers.
+ * Numbers are in E.164 international format:
+ * - 08075514345 -> 2348075514345
+ * - 08033109393 -> 2348033109393
+ */
+export const WHATSAPP_NUMBERS = ["2348075514345", "2348033109393"] as const;
 const STORAGE_KEY = "elmik_last_wa_index";
 
-// In-memory fallback for environments where localStorage is unavailable
+// In-memory fallback for environments where localStorage is unavailable (e.g. incognito restrictions)
 let memoryLastIndex = -1;
 
 /**
- * Strategy A — Strict alternation via localStorage (default per PRD Section 7).
- * Reads the last-used index, increments modulo 2, persists, and returns the next WhatsApp number.
+ * Strategy A (Client Fallback) — Strict deterministic alternation via localStorage
+ * Guarantee: Even 50/50 alternation per browser/device.
  */
-export function getNextWhatsAppNumber(): string {
+export function getLocalNextWhatsAppNumber(): string {
   if (typeof window === "undefined") {
-    // SSR guard — fallback safely to index 0
+    // SSR guard — safely return primary index 0
     return WHATSAPP_NUMBERS[0];
   }
 
@@ -25,14 +33,43 @@ export function getNextWhatsAppNumber(): string {
     window.localStorage.setItem(STORAGE_KEY, String(nextIndex));
     return WHATSAPP_NUMBERS[nextIndex];
   } catch {
-    // In-memory fallback if localStorage access is blocked (e.g. private mode restrictions)
     memoryLastIndex = (memoryLastIndex + 1) % 2;
     return WHATSAPP_NUMBERS[memoryLastIndex];
   }
 }
 
 /**
- * Formats order or restock inquiries into pre-filled WhatsApp messages.
+ * Preferred Strategy (Global Atomic Counter via Supabase RPC)
+ * Calls the `get_next_whatsapp_index()` Postgres function to guarantee true cross-device,
+ * globally fair 50/50 alternation. Automatically falls back to localStorage if network/RPC is unavailable.
+ */
+export async function getNextWhatsAppNumber(): Promise<string> {
+  if (typeof window === "undefined") {
+    return WHATSAPP_NUMBERS[0];
+  }
+
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase.rpc("get_next_whatsapp_index");
+
+    if (error || data === null || data === undefined) {
+      return getLocalNextWhatsAppNumber();
+    }
+
+    const index = (Math.abs(Number(data))) % 2;
+    try {
+      window.localStorage.setItem(STORAGE_KEY, String(index));
+    } catch {}
+
+    return WHATSAPP_NUMBERS[index];
+  } catch {
+    return getLocalNextWhatsAppNumber();
+  }
+}
+
+/**
+ * Formats order or restock inquiries into pre-filled, emoji-free WhatsApp messages.
+ * Verified for clean rendering on both iOS and Android WhatsApp.
  */
 export function buildWhatsAppMessage(order: OrderDetails): string {
   const formattedPrice = formatNaira(order.price);
@@ -61,8 +98,8 @@ export function buildWhatsAppMessage(order: OrderDetails): string {
 /**
  * Generates the complete wa.me deep link with balanced phone number and encoded message.
  */
-export function getWhatsAppOrderUrl(order: OrderDetails): string {
-  const number = getNextWhatsAppNumber();
+export async function getWhatsAppOrderUrl(order: OrderDetails): Promise<string> {
+  const number = await getNextWhatsAppNumber();
   const message = buildWhatsAppMessage(order);
   return `https://wa.me/${number}?text=${message}`;
 }

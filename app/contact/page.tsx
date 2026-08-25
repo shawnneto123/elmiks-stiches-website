@@ -1,18 +1,17 @@
 import { BRAND } from "@/lib/constants";
-import { WHATSAPP_NUMBERS } from "@/lib/whatsapp/roundRobin";
 import { GoogleMapEmbed } from "@/components/GoogleMapEmbed";
 
 export const metadata = {
-  title: "Contact & Store Location | Elmik Stitches",
+  title: "Contact & Store Location",
   description:
     "Visit the Elmik Stitches store at Efab City Estate, Jabi, Abuja or contact our styling team on WhatsApp for orders and bespoke tailoring.",
 };
 
 export default function ContactPage() {
-  const primaryNumber = WHATSAPP_NUMBERS[0];
+  const primaryPhone = BRAND.phones[0];
 
   return (
-    <main className="max-w-6xl mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-20 space-y-12">
+    <main className="max-w-6xl mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-20 space-y-12 w-full max-w-full overflow-x-hidden min-w-0">
       {/* Page Title */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <span className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
@@ -22,7 +21,7 @@ export default function ContactPage() {
           Visit Our Studio &amp; Contact Us
         </h1>
         <p className="text-neutral-600 text-sm sm:text-base leading-relaxed font-light">
-          We welcome you to visit our physical showroom in Abuja or reach out directly on WhatsApp for orders, custom tailoring inquiries, and worldwide delivery support.
+          We welcome you to visit our physical showroom in Abuja or reach out directly via WhatsApp for orders, custom tailoring inquiries, and worldwide delivery support.
         </p>
       </div>
 
@@ -57,28 +56,59 @@ export default function ContactPage() {
             <div className="space-y-2 text-sm text-neutral-700 divide-y divide-neutral-100">
               <div className="flex justify-between items-center pt-2">
                 <span className="font-medium text-neutral-900">Physical Store:</span>
-                <span>{BRAND.storeHours} (Mon – Sat)</span>
+                <span>{BRAND.storeHours}</span>
               </div>
               <div className="flex justify-between items-center pt-2">
                 <span className="font-medium text-neutral-900">Online &amp; WhatsApp:</span>
-                <span className="text-neutral-900 font-medium">24/7 Available</span>
+                <span className="text-neutral-900 font-medium">{BRAND.onlineHours}</span>
               </div>
               <div className="flex justify-between items-center pt-2">
                 <span className="font-medium text-neutral-900">Sunday:</span>
-                <span className="text-neutral-500">Store Closed (Online open)</span>
+                <span className="text-neutral-500">Store Closed (Online orders open)</span>
               </div>
             </div>
           </div>
 
-          {/* WhatsApp & Socials Card */}
-          <div className="p-6 sm:p-8 rounded-2xl bg-neutral-900 text-white shadow-sm space-y-4">
-            <h2 className="font-serif text-xl font-bold">Direct Inquiries</h2>
-            <p className="text-xs text-neutral-300 leading-relaxed font-light">
-              Have questions about available sizes, fabrics, or bespoke timelines? Chat directly with our customer concierge on WhatsApp.
-            </p>
+          {/* WhatsApp, Phone & Email Card */}
+          <div className="p-6 sm:p-8 rounded-2xl bg-neutral-900 text-white shadow-sm space-y-5">
+            <div className="space-y-1.5">
+              <h2 className="font-serif text-xl font-bold">Direct Inquiries &amp; Orders</h2>
+              <p className="text-xs text-neutral-300 leading-relaxed font-light">
+                Have questions about available sizes, bespoke timelines, or fabric choices? Connect directly with our concierge team.
+              </p>
+            </div>
+
+            {/* Clickable Phone & Email Links */}
+            <div className="pt-2 border-t border-neutral-800 space-y-2.5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                <span className="text-neutral-400">Call / WhatsApp:</span>
+                <div className="flex flex-wrap items-center gap-3">
+                  {BRAND.phones.map((p) => (
+                    <a
+                      key={p.raw}
+                      href={`tel:${p.tel}`}
+                      className="text-white hover:text-brand-accent transition underline font-medium"
+                    >
+                      {p.display}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs pt-1">
+                <span className="text-neutral-400">Email:</span>
+                <a
+                  href={`mailto:${BRAND.email}`}
+                  className="text-white hover:text-brand-accent transition underline font-medium"
+                >
+                  {BRAND.email}
+                </a>
+              </div>
+            </div>
+
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <a
-                href={`https://wa.me/${primaryNumber}?text=${encodeURIComponent("Hello Elmik Stitches, I have an inquiry about your collections.")}`}
+                href={`https://wa.me/${primaryPhone.raw}?text=${encodeURIComponent("Hello Elmik Stitches, I have an inquiry about your collections.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full bg-brand-accent hover:bg-brand-accent-hover text-white px-6 py-3 text-xs font-semibold transition text-center shadow-sm"

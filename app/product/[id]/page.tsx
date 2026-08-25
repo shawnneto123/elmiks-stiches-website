@@ -57,7 +57,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   }
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-8 md:py-14">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-8 md:py-14 w-full max-w-full overflow-x-hidden min-w-0">
       <ProductDetailClient product={product as Product} />
     </main>
   );

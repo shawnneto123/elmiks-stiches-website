@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function SizeChartPage() {
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-20 space-y-12">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-20 space-y-12 w-full max-w-full overflow-x-hidden min-w-0">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400">

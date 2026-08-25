@@ -1,15 +1,15 @@
 import Link from "next/link";
-import { BRAND } from "@/lib/constants";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Our Story & Craft | Elmik Stitches",
+export const metadata: Metadata = {
+  title: "Our Story & Craft",
   description:
     "Learn about Elmik Stitches — premier fashion house based in Abuja, Nigeria, specializing in bespoke tailoring and ready-to-wear luxury.",
 };
 
 export default function AboutPage() {
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-20 space-y-12">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-20 space-y-12 w-full max-w-full overflow-x-hidden min-w-0">
       {/* Header */}
       <div className="space-y-4 text-center max-w-2xl mx-auto">
         <span className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
@@ -28,7 +28,6 @@ export default function AboutPage() {
         <div className="bg-neutral-50 p-6 sm:p-8 rounded-2xl border border-neutral-200/80">
           <h2 className="font-serif text-2xl font-bold text-neutral-900 mb-3">Our Vision &amp; Heritage</h2>
           <p>
-            {/* TODO: insert client copy */}
             Founded with a passion for precise craftsmanship and sartorial refinement, <strong>Elmik Stitches</strong> has grown to become a cornerstone of contemporary Ready-To-Wear (RTW) fashion and bespoke tailoring in Abuja.
           </p>
           <p className="mt-3 text-neutral-600">
@@ -54,7 +53,7 @@ export default function AboutPage() {
 
         {/* Pillars of Elmik Stitches */}
         <div className="pt-8 border-t border-neutral-200">
-          <h3 className="font-serif text-2xl font-bold text-neutral-900 mb-6 text-center">Our Satorial Principles</h3>
+          <h3 className="font-serif text-2xl font-bold text-neutral-900 mb-6 text-center">Our Sartorial Principles</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
             <div className="p-6 rounded-xl bg-white border border-neutral-200/80 space-y-2">
               <span className="font-serif text-lg font-bold text-brand-accent">01</span>
