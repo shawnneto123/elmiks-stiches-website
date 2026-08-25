@@ -101,7 +101,7 @@ export default async function HomePage() {
               <div className="col-span-2 lg:col-span-2 lg:row-span-2 group flex flex-col min-w-0">
                 <Link
                   href={`/product/${heroProduct.id}`}
-                  className="relative aspect-[3/4] lg:aspect-[4/5] w-full overflow-hidden bg-neutral-100 flex flex-col justify-end p-4 sm:p-6 md:p-8 transition"
+                  className="relative aspect-[3/4] lg:aspect-[4/5] w-full overflow-hidden bg-neutral-100 rounded-lg flex flex-col justify-end p-4 sm:p-6 md:p-8 transition"
                 >
                   {heroProduct.image_url ? (
                     <Image
@@ -136,7 +136,7 @@ export default async function HomePage() {
             {gridProducts.map((product) => (
               <div key={product.id} className="group flex flex-col min-w-0">
                 <Link href={`/product/${product.id}`} className="block w-full min-w-0">
-                  <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-100 mb-2.5">
+                  <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-100 rounded-lg mb-2.5">
                     {product.image_url ? (
                       <Image
                         src={product.image_url}
