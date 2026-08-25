@@ -11,7 +11,7 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <Link href={`/product/${product.id}`} className="group block w-full min-w-0">
       {/* 3:4 aspect ratio container — borderless, shadowless per PRD Section 4.1 */}
-      <div className="relative aspect-[3/4] w-full max-w-full overflow-hidden bg-neutral-100 mb-2.5">
+      <div className="relative aspect-[3/4] w-full max-w-full overflow-hidden bg-neutral-100 rounded-lg mb-2.5">
         {product.image_url ? (
           <Image
             src={product.image_url}

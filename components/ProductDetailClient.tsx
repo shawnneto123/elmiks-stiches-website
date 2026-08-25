@@ -49,7 +49,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
         {/* Image Gallery */}
         <div className="space-y-3 w-full min-w-0">
           {/* Main Image */}
-          <div className="relative aspect-[3/4] w-full max-w-full overflow-hidden bg-neutral-100 rounded-xs">
+          <div className="relative aspect-[3/4] w-full max-w-full overflow-hidden bg-neutral-100 rounded-lg">
             {allImages.length > 0 ? (
               <Image
                 src={allImages[currentImageIndex]}

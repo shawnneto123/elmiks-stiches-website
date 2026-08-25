@@ -4,7 +4,7 @@ export default function ProductLoading() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 w-full min-w-0">
         {/* Gallery skeleton */}
         <div className="space-y-3 w-full min-w-0">
-          <div className="aspect-[3/4] w-full bg-neutral-100 rounded animate-pulse" />
+          <div className="aspect-[3/4] w-full bg-neutral-100 rounded-lg animate-pulse" />
           <div className="flex gap-2">
             <div className="w-16 h-20 bg-neutral-100 rounded animate-pulse" />
             <div className="w-16 h-20 bg-neutral-100 rounded animate-pulse" />
