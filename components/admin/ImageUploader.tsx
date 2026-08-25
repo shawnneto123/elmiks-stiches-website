@@ -187,7 +187,7 @@ export function ImageUploader({
               </div>
               <div className="space-y-1">
                 <p className="text-xs font-semibold text-neutral-800">
-                  Tap to take photo or choose from library
+                  Tap to upload photo or choose from library
                 </p>
                 <p className="text-[11px] text-neutral-400">
                   Portrait 3:4 recommended (JPG, PNG, WebP up to 8MB)
@@ -198,12 +198,11 @@ export function ImageUploader({
         </div>
       )}
 
-      {/* Hidden File Input with camera capture enabled */}
+      {/* Hidden File Input allowing native OS picker (Photo Library, Files, or Camera) */}
       <input
         ref={fileInputRef}
         type="file"
         accept="image/*"
-        capture="environment"
         onChange={handleFileChange}
         className="hidden"
       />
