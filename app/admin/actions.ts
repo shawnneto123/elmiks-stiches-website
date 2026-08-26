@@ -266,3 +266,97 @@ export async function toggleStockAction(
     return { error: err.message || "Failed to update stock status." };
   }
 }
+
+/**
+ * Server Actions for Customer Gallery Management
+ */
+
+export async function createGalleryImageAction(
+  formData: FormData
+): Promise<ActionResult> {
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return { error: "Unauthorized: Please log in to perform this action." };
+    }
+
+    const imageUrl = (formData.get("image_url") as string)?.trim();
+    const caption = (formData.get("caption") as string)?.trim() || null;
+    const displayOrderRaw = formData.get("display_order") as string;
+    const displayOrder = displayOrderRaw ? parseInt(displayOrderRaw, 10) : 0;
+
+    if (!imageUrl) {
+      return { error: "Gallery photo is required." };
+    }
+
+    const { data, error } = await supabase
+      .from("gallery_images")
+      .insert({
+        image_url: imageUrl,
+        caption,
+        display_order: isNaN(displayOrder) ? 0 : displayOrder,
+      })
+      .select("id")
+      .single();
+
+    if (error) {
+      return { error: error.message };
+    }
+
+    revalidatePath("/gallery");
+    revalidatePath("/admin/gallery");
+
+    return { success: true, id: data.id };
+  } catch (err: any) {
+    return { error: err.message || "Failed to add gallery photo." };
+  }
+}
+
+export async function deleteGalleryImageAction(
+  id: string,
+  imageUrl?: string
+): Promise<ActionResult> {
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return { error: "Unauthorized: Please log in to perform this action." };
+    }
+
+    // Clean up Supabase Storage object if stored in gallery-images bucket
+    if (imageUrl && imageUrl.includes("/gallery-images/")) {
+      try {
+        const pathParts = imageUrl.split("/gallery-images/");
+        if (pathParts[1]) {
+          await supabase.storage.from("gallery-images").remove([pathParts[1]]);
+        }
+      } catch {
+        // Continue even if storage delete encounters an issue
+      }
+    }
+
+    const { error } = await supabase
+      .from("gallery_images")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      return { error: error.message };
+    }
+
+    revalidatePath("/gallery");
+    revalidatePath("/admin/gallery");
+
+    return { success: true };
+  } catch (err: any) {
+    return { error: err.message || "Failed to delete gallery photo." };
+  }
+}
+

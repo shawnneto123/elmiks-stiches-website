@@ -62,8 +62,7 @@
 ## 3. Tech Stack (Locked — do not substitute)
 
 - **Framework:** Next.js, App Router (`app/` directory), React Server Components by default, Client Components only where interactivity requires it (`"use client"`).
-- **Styling:** Tailwind CSS (utility-first, mobile-first breakpoints). Design tokens (fonts, brand accent color) must follow the Visual Design System in Section 4 — do not use Tailwind/shadcn defaults unmodified.
-- **Fonts:** loaded via `next/font/google` (no external `<link>` tags) — a serif display face for the wordmark/headings and a sans-serif face for everything else, per Section 4.3.
+- **Styling:** Tailwind CSS (utility-first, mobile-first breakpoints).
 - **Backend:** Supabase (Postgres + Storage + Auth).
 - **Data fetching:** `@supabase/supabase-js` + `@supabase/ssr` for server/client Supabase clients.
 - **Deployment:** Vercel.
@@ -71,52 +70,7 @@
 
 ---
 
-## 4. Visual Design System (Extracted from Reference Layout)
-
-The client supplied a reference screenshot of a minimalist, high-end fashion storefront. The visual language below is extracted directly from that reference and is **mandatory** — the agent must not substitute its own default Tailwind/shadcn aesthetic. All values are directives for `tailwind.config.ts` and component classnames, not vague suggestions.
-
-### 4.1 Grid Structure & Spacing
-
-- **Product grid is borderless and shadowless.** Cards are not bounded by a `border` or `shadow-*` — each product's "card" is simply an image sitting on a flat, very light neutral background block, followed by text underneath. Do **not** wrap product cards in `rounded-xl border shadow-sm` (a common Tailwind default) — that visually contradicts the reference.
-- **Card background:** a subtle off-white/light-gray tint behind each product image (`bg-neutral-100` / `bg-zinc-100`), not pure white and not a bordered container. This lets 100+ differently-lit product photos feel visually unified without individual framing.
-- **Grid gap:** generous, consistent gutters between cells — implement as `gap-5` (20px) to `gap-6` (24px) at the Tailwind default scale. Do not tighten below `gap-4`; the reference relies on whitespace to read as "high-end," not dense/discount.
-- **Grid composition:** the reference uses an asymmetric "bento" layout on desktop — one larger/taller featured cell (e.g., `row-span-2`) alongside standard single cells, mixing portrait and landscape crops in the same row. For Elmik Stitches' catalog (100+ SKUs), replicate this **only on the home page "Featured" section** (a hand-curated bento of ~5 items using `grid-cols-4 grid-rows-2` with one `col-span-2 row-span-2` hero cell) — the main `/shop` catalog grid should instead be a **uniform grid** (`grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5`) since a bento layout does not scale sensibly to 100+ items or predictable pagination.
-- **Section padding:** generous outer padding around the grid and sidebar — `px-6 md:px-10 py-8 md:py-12` at the page-container level.
-- **Sidebar (desktop only):** the reference shows a persistent left filter sidebar (category list, size filter, color swatches) beside the grid, roughly 200–220px fixed width with a wide gutter (`gap-10`) before the grid starts. On Elmik Stitches this becomes the `CategoryFilterBar` — render as a left sidebar at `lg:` breakpoint and up, collapsing to a horizontally-scrollable chip bar or filter-drawer below `lg:` (mobile-first requirement, Section 12).
-
-### 4.2 Image Aspect Ratios
-
-- Portrait product shots (bags, leggings, dresses): **3:4** (`aspect-[3/4]`), the dominant ratio in the reference and the fashion-industry standard — already mandated in Section 8.
-- Occasional landscape/lifestyle shots (e.g., a shoe pair shot from the side): **3:2** (`aspect-[3/2]`) is acceptable for a hero/featured cell only, never for standard catalog grid cells, which must stay uniformly 3:4 so the `/shop` grid doesn't visually jump between row heights.
-- All images use `object-cover` via `next/image`'s `fill` prop, never `object-contain` (which would letterbox and break the flush, edge-to-edge look of the reference).
-
-### 4.3 Typography Hierarchy
-
-Two-typeface system, matching the reference's serif-wordmark / sans-serif-everything-else pattern:
-
-| Role | Typeface | Weight | Size (Tailwind) | Color |
-|---|---|---|---|---|
-| Brand wordmark ("Elmik Stitches" logo text, if no image logo) | Serif display (e.g., `Playfair Display` or `Cormorant Garamond` via `next/font/google`) | Bold (700) | `text-2xl` / `text-3xl` | `text-neutral-900` |
-| Nav links, category list, filter labels | Sans-serif (e.g., `Inter`) | Regular (400) | `text-sm` (14px) | `text-neutral-700`, `hover:text-neutral-900` |
-| Section/page headings ("Shop", "New Collections") | Serif display, matching wordmark | Semibold (600) | `text-xl` / `text-2xl` | `text-neutral-900` |
-| Product title (card + detail page) | Sans-serif | Medium (500) | `text-sm` / `text-base` | `text-neutral-900` |
-| Price | Sans-serif | Regular (400) | `text-sm` | `text-neutral-500` — visually quieter than the title, exactly as in the reference |
-| Utility/micro text (top bar, footer fine print) | Sans-serif | Regular (400) | `text-xs` (12px) | `text-neutral-500` |
-
-Load both fonts via `next/font/google` in `app/layout.tsx` (no external `<link>` tags, no FOUT) — e.g. `Playfair_Display` for `--font-serif` and `Inter` for `--font-sans`, wired into `tailwind.config.ts` `fontFamily`.
-
-### 4.4 Button & CTA Styling
-
-- The reference itself is almost entirely monochrome — the only interactive chrome visible (the cart pill button) is a neutral `rounded-full` pill with a light-gray fill, black text/icon, no drop shadow, no saturated color. This confirms the client's instruction: **the UI must stay monochromatic by default**, so that the one deliberately-colored element — the WhatsApp "Order" CTA — reads as the obvious next action rather than competing with other colored buttons.
-- **Primary CTA ("Order via WhatsApp"):** `rounded-full`, filled with the brand/WhatsApp accent color (see `--brand-accent` below), white text, medium weight, comfortable tap target (`px-6 py-3` minimum, mobile-first — must clear the 44×44px minimum touch target). This is the **only** filled, colored button in the entire app.
-- **Secondary CTA ("Request Restock via WhatsApp"):** same pill shape and size as the primary CTA, but `outline`/ghost style — `border border-[--brand-accent] text-[--brand-accent] bg-transparent` — signaling "still clickable, but not the default happy path" (Section 9 logic).
-- **All other buttons/links** (nav, filters, "Add to size chart", admin non-destructive actions) stay strictly monochrome: black/neutral-900 text or fill on white/neutral-100, matching the reference's pill-shaped cart button — `rounded-full bg-neutral-100 text-neutral-900 hover:bg-neutral-200`.
-- **Destructive actions only** (admin "Delete Product") may use a restrained red (`bg-red-600`), the sole other exception to monochrome, since it needs to visually differ from the brand-accent CTA to avoid accidental taps.
-- **Brand accent token:** define `--brand-accent` once in `tailwind.config.ts` (`colors.brand.accent`). Default to WhatsApp's own green (`#25D366`) as a sane placeholder **only until the client supplies an actual Elmik Stitches logo/brand color** — the agent must not hardcode `#25D366` inline anywhere; it must always resolve through the `brand.accent` token so a single config change re-themes every CTA in the app once the real logo color is known.
-
----
-
-## 5. File / Folder Structure (Next.js App Router)
+## 4. File / Folder Structure (Next.js App Router)
 
 ```
 elmik-stitches/
@@ -146,6 +100,9 @@ elmik-stitches/
 │   ├── contact/
 │   │   └── page.tsx                   # Store info + embedded Google Map
 │   │
+│   ├── gallery/
+│   │   └── page.tsx                   # Customer photo gallery (masonry grid, no product links)
+│   │
 │   ├── admin/
 │   │   ├── layout.tsx                 # Auth guard wrapper, mobile-first shell
 │   │   ├── login/
@@ -157,7 +114,9 @@ elmik-stitches/
 │   │   │   └── [id]/
 │   │   │       └── edit/
 │   │   │           └── page.tsx       # Edit product form
-│   │   └── actions.ts                 # Server actions: create/update/delete product
+│   │   ├── gallery/
+│   │   │   └── page.tsx               # Admin gallery management (add/delete photos)
+│   │   └── actions.ts                 # Server actions: create/update/delete product, gallery items
 │   │
 │   └── api/
 │       └── (none required — use Server Actions instead of API routes
@@ -172,11 +131,14 @@ elmik-stitches/
 │   ├── SizeChartModal.tsx
 │   ├── CustomOrderForm.tsx
 │   ├── GoogleMapEmbed.tsx
+│   ├── GalleryGrid.tsx                # Masonry/flexible grid for customer photos
+│   ├── GalleryLightbox.tsx            # Optional full-screen image viewer
 │   └── admin/
 │       ├── AdminNav.tsx               # Bottom tab bar (mobile-first)
 │       ├── ProductForm.tsx
 │       ├── ImageUploader.tsx
-│       └── StockToggle.tsx
+│       ├── StockToggle.tsx
+│       └── GalleryUploadForm.tsx      # Admin gallery photo upload + caption
 │
 ├── lib/
 │   ├── supabase/
@@ -187,7 +149,7 @@ elmik-stitches/
 │   │   └── roundRobin.ts              # CRITICAL: WhatsApp load-balancer logic
 │   ├── utils/
 │   │   └── currency.ts                # formatNaira() — Intl.NumberFormat wrapper
-│   ├── types.ts                       # Product, CustomOrderRequest TS types
+│   ├── types.ts                       # Product, CustomOrderRequest, GalleryImage TS types
 │   └── constants.ts                   # Categories, sizes, brand info
 │
 ├── middleware.ts                      # Protects /admin/* routes (session check)
@@ -196,13 +158,13 @@ elmik-stitches/
 │   └── (static assets, logo, favicon)
 ├── .env.local                         # NEXT_PUBLIC_SUPABASE_URL, ANON_KEY
 ├── next.config.js
-├── tailwind.config.ts                 # fontFamily (serif/sans) + colors.brand.accent — Section 4
+├── tailwind.config.ts
 └── package.json
 ```
 
 ---
 
-## 6. User Flows
+## 5. User Flows
 
 ### 5.1 Customer Flow (Public, No Auth)
 
@@ -216,12 +178,12 @@ elmik-stitches/
    - Stock badge (In Stock / Out of Stock)
    - Link to `/size-chart` (opens as modal or new page)
 4. **If `in_stock === true`:** selects size + color → clicks **"Order via WhatsApp"**.
-   **If `in_stock === false`:** the button relabels to **"Request Restock via WhatsApp"** (still enabled — see Section 9 for exact logic) and selects size + color as normal before sending.
+   **If `in_stock === false`:** the button relabels to **"Request Restock via WhatsApp"** (still enabled — see Section 8 for exact logic) and selects size + color as normal before sending.
 5. `roundRobin.ts` selects one of the two numbers → constructs `wa.me` URL with the appropriate pre-filled message (order or restock request) → opens in new tab.
 6. Alternative path: Customer wants a custom/bulk piece → navigates to `/custom-order` → fills form (name, phone, measurements, fabric choice, event date, notes) → form itself is either:
    - Submitted directly to WhatsApp via a pre-filled message (recommended, consistent with "no backend order table" philosophy), OR
    - Optionally stored in a lightweight `custom_order_requests` table (see SCHEMA.sql, optional table) for the admin to review — **only if client wants a record**. Default behavior: route to WhatsApp, same as product orders.
-7. Customer can view `/about` and `/contact` (with embedded Google Map) at any time via persistent nav.
+7. Customer can view `/about`, `/contact` (with embedded Google Map), and `/gallery` (customer photos wearing Elmik pieces) at any time via persistent nav. The gallery is purely visual — images are not linked to specific products (see Section 11).
 
 ### 5.2 Admin Flow (Authenticated, Mobile-First)
 
@@ -230,18 +192,19 @@ elmik-stitches/
 3. `/admin/login` → email + password form (Supabase Auth, single admin user, no public signup).
 4. On success → redirected to `/admin` dashboard:
    - List of all products (thumbnail, title, price, stock toggle switch) in a scrollable mobile list.
-   - Bottom tab bar navigation: Dashboard / Add Product / Logout.
+   - Bottom tab bar navigation: Dashboard / Add Product / Gallery / Logout.
 5. **Add Product** (`/admin/products/new`):
    - Upload photo (camera roll or camera directly — `<input type="file" accept="image/*" capture>`) → uploads to Supabase Storage bucket `product-images` → gets public URL.
    - Enter title, price, category (dropdown), sizes (multi-select chips: S/M/L/XL/XXL), color(s), stock status toggle.
    - Submit → Server Action inserts row into `products` table.
 6. **Edit Product** (`/admin/products/[id]/edit`): same form, pre-filled, with Delete option (confirm dialog).
 7. **Toggle stock**: inline switch on dashboard list — single tap, optimistic UI update, Server Action patches `in_stock` boolean.
-8. Session persists via Supabase cookie-based auth (SSR-compatible) — no need to re-login every visit within token expiry window.
+8. **Manage Gallery** (`/admin/gallery`): upload customer photos (camera roll/camera), optional caption, delete existing photos. See Section 11 for full detail.
+9. Session persists via Supabase cookie-based auth (SSR-compatible) — no need to re-login every visit within token expiry window.
 
 ---
 
-## 7. WhatsApp Round-Robin Load Balancer — Detailed Logic
+## 6. WhatsApp Round-Robin Load Balancer — Detailed Logic
 
 **File:** `lib/whatsapp/roundRobin.ts`
 
@@ -302,7 +265,7 @@ export function getNextWhatsAppNumber(): string {
 }
 
 export function buildWhatsAppMessage(order: OrderDetails): string {
-  const formattedPrice = formatNaira(order.price); // see Section 11 — lib/utils/currency.ts
+  const formattedPrice = formatNaira(order.price); // see Section 10 — lib/utils/currency.ts
 
   if (order.isRestockRequest) {
     return encodeURIComponent(
@@ -336,7 +299,7 @@ export function getWhatsAppOrderUrl(order: OrderDetails): string {
 
 ---
 
-## 8. Image Performance & Loading Strategy (Mandatory)
+## 7. Image Performance & Loading Strategy (Mandatory)
 
 The catalog launches with 100+ product images, so image handling is a first-class architectural concern, not an afterthought.
 
@@ -351,23 +314,23 @@ The catalog launches with 100+ product images, so image handling is a first-clas
 
 ---
 
-## 9. Out-of-Stock / Restock UX Logic (Mandatory)
+## 8. Out-of-Stock / Restock UX Logic (Mandatory)
 
 The Order button on `/product/[id]` (via `components/OrderButton.tsx`) must react to the product's `in_stock` boolean as follows — this is not optional UI polish, it is required behavior:
 
 | `in_stock` | Button Label | Button State | WhatsApp Message Type |
 |---|---|---|---|
-| `true` | "Order via WhatsApp" | Enabled (once size/color selected) | Standard order message (see Section 7) |
-| `false` | "Request Restock via WhatsApp" | **Still enabled** (once size/color selected) | Restock-request message (see Section 7, `isRestockRequest: true`) |
+| `true` | "Order via WhatsApp" | Enabled (once size/color selected) | Standard order message (see Section 6) |
+| `false` | "Request Restock via WhatsApp" | **Still enabled** (once size/color selected) | Restock-request message (see Section 6, `isRestockRequest: true`) |
 
-- The button must **never simply disable and go dead** when a product is out of stock — that is a lost lead. Instead it relabels and re-purposes itself to capture restock interest, still routed through the same round-robin load balancer (Section 7) so restock inquiries are evenly distributed too.
+- The button must **never simply disable and go dead** when a product is out of stock — that is a lost lead. Instead it relabels and re-purposes itself to capture restock interest, still routed through the same round-robin load balancer (Section 6) so restock inquiries are evenly distributed too.
 - The visual style should shift (e.g., primary/brand-colored button for in-stock orders → a secondary/outline style for restock requests) so customers can tell at a glance the item isn't immediately available, without the CTA disappearing.
 - The stock badge near the title (In Stock / Out of Stock) remains a separate, always-visible visual indicator independent of the button.
 - `OrderButton.tsx` derives its label, style, and message payload purely from the `product.in_stock` prop passed down from the Server Component — no separate client-side stock re-fetch is needed.
 
 ---
 
-## 10. SEO & Social Sharing (Open Graph)
+## 9. SEO & Social Sharing (Open Graph)
 
 Since links to the storefront will be shared on WhatsApp, Instagram, and Facebook, every page must render correct Open Graph and Twitter Card metadata so link previews show a proper image, title, and description instead of a bare URL.
 
@@ -386,7 +349,7 @@ Since links to the storefront will be shared on WhatsApp, Instagram, and Faceboo
 
 ---
 
-## 11. Currency Formatting Utility (Mandatory, Single Source of Truth)
+## 10. Currency Formatting Utility (Mandatory, Single Source of Truth)
 
 All Naira price displays across the entire app (product cards, product detail, WhatsApp messages, admin forms) must go through **one shared utility function** — no ad-hoc `Intl.NumberFormat` calls scattered across components.
 
@@ -411,8 +374,43 @@ export function formatNaira(amount: number): string {
 }
 ```
 
-- `ProductCard.tsx`, the product detail page, `ProductForm.tsx` (admin, for live preview), and `buildWhatsAppMessage()` (Section 7) must all import and use `formatNaira()` rather than instantiating their own formatter.
+- `ProductCard.tsx`, the product detail page, `ProductForm.tsx` (admin, for live preview), and `buildWhatsAppMessage()` (Section 6) must all import and use `formatNaira()` rather than instantiating their own formatter.
 - No decimal places are shown (Naira prices are conventionally whole numbers in this catalog's context) — `minimumFractionDigits: 0` / `maximumFractionDigits: 0` is intentional and must not be changed without explicit client request.
+
+---
+
+## 11. Gallery Feature (Customer Photos)
+
+A dedicated **social-proof gallery** showcasing customer photos wearing Elmik Stitches pieces. This is a separate concern from the product catalog — gallery images are **not linked to any product** and exist purely to build trust/visual credibility.
+
+### 11.1 Data Model
+A new `gallery_images` table (see `SCHEMA.sql`), independent of `products`:
+- `id`, `image_url`, `caption` (optional — e.g. customer name or short quote), `display_order` (optional manual ordering), `created_at`.
+- Public **SELECT** (anon + authenticated), admin-only **INSERT/UPDATE/DELETE** — same RLS pattern as `products`.
+
+### 11.2 Storage
+A separate public Supabase Storage bucket, `gallery-images`, kept distinct from `product-images` so the two upload flows never get confused in the admin UI. Same storage RLS pattern (public read, authenticated write/update/delete).
+
+### 11.3 Public Page — `/gallery`
+- Server Component, fetches all rows ordered by `display_order`, then `created_at desc`.
+- Rendered as a **responsive masonry/flexible grid** — explicitly **not** the fixed 3:4 aspect-ratio grid used on `/shop` (Section 7), since customer-submitted photos have varying natural aspect ratios and forcing a crop would look unnatural for this content type. Use CSS columns-based masonry or a grid with `auto-rows`, with `next/image` sized to each image's natural dimensions.
+- Lazy-load all images except the first few above the fold.
+- Optional caption shown as an overlay or beneath each image, if present.
+- Empty state: "No gallery photos yet — check back soon!"
+- `generateMetadata` following the same OG/title pattern as every other page (Section 9).
+- Added to the persistent header/footer nav alongside Shop, Custom Order, Size Guide, About, Contact.
+
+### 11.4 Admin Page — `/admin/gallery`
+- New tab in the mobile-first admin bottom nav (`AdminNav.tsx`), alongside Dashboard and Add Product.
+- Scrollable list/grid of existing gallery images (thumbnail, caption, delete button).
+- "Add Photo" flow reuses the same camera-capture-enabled uploader pattern (`<input type="file" accept="image/*" capture="environment">`) used for product photo uploads → uploads to `gallery-images` bucket → optional caption text field → Server Action inserts into `gallery_images`.
+- Delete removes both the database row and the associated Storage object (same pattern as product deletion).
+- No "edit" flow required for v1 — add/delete only.
+
+### 11.5 Explicitly Out of Scope (Gallery)
+- No linking gallery images to specific products.
+- No customer-facing upload — admin-only, same trust boundary as the rest of the CMS.
+- No likes/comments/social interaction features.
 
 ---
 
@@ -421,7 +419,7 @@ export function formatNaira(amount: number): string {
 - **Mobile-first:** All pages, especially `/admin`, must be designed mobile-first (base Tailwind classes = mobile, `md:`/`lg:` = enhancements). Admin will exclusively use iPhone/iPad.
 - **No authentication for customers** — public site requires zero login/signup.
 - **Single admin user** — no multi-admin, no role system, no public registration flow. Admin account created manually via Supabase Dashboard, not through app UI.
-- **SEO:** Product and category pages should be server-rendered (RSC) for indexability; use `generateMetadata` per product (see Section 10 for full OG requirements).
+- **SEO:** Product, category, and gallery pages should be server-rendered (RSC) for indexability; use `generateMetadata` per page (see Section 9 for full OG requirements).
 
 ---
 
@@ -436,3 +434,4 @@ export function formatNaira(amount: number): string {
 - Reviews/ratings system
 - Wishlist/favorites
 - Domain/DNS configuration
+- Gallery-to-product linking, customer-facing gallery uploads, gallery social interactions (see Section 11.5)

@@ -42,6 +42,14 @@ export interface WhatsAppRouter {
   updated_at: string;
 }
 
+export interface GalleryImage {
+  id: string;
+  image_url: string;
+  caption: string | null;
+  display_order: number;
+  created_at: string;
+}
+
 export interface OrderDetails {
   title: string;
   size: string;
@@ -49,3 +57,4 @@ export interface OrderDetails {
   price: number; // in Naira
   isRestockRequest?: boolean; // true when product.in_stock === false
 }
+

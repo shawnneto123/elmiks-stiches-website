@@ -8,12 +8,14 @@ interface ImageUploaderProps {
   initialUrl?: string;
   onUpload: (url: string) => void;
   label?: string;
+  bucketName?: string;
 }
 
 export function ImageUploader({
   initialUrl = "",
   onUpload,
   label = "Product Photo",
+  bucketName = "product-images",
 }: ImageUploaderProps) {
   const [imageUrl, setImageUrl] = useState<string>(initialUrl);
   const [isUploading, setIsUploading] = useState(false);
@@ -50,7 +52,7 @@ export function ImageUploader({
       const filePath = `uploads/${fileName}`;
 
       const { data, error } = await supabase.storage
-        .from("product-images")
+        .from(bucketName)
         .upload(filePath, file, {
           cacheControl: "3600",
           upsert: false,
@@ -63,7 +65,7 @@ export function ImageUploader({
       // Get public URL
       const {
         data: { publicUrl },
-      } = supabase.storage.from("product-images").getPublicUrl(data.path);
+      } = supabase.storage.from(bucketName).getPublicUrl(data.path);
 
       setImageUrl(publicUrl);
       onUpload(publicUrl);

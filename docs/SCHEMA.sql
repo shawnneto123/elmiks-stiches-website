@@ -104,7 +104,24 @@ create index if not exists idx_custom_orders_status on public.custom_order_reque
 create index if not exists idx_custom_orders_created_at on public.custom_order_requests (created_at desc);
 
 -- ---------------------------------------------------------------------
--- 7. (OPTIONAL — PREFERRED) GLOBAL WHATSAPP ROUND-ROBIN COUNTER
+-- 7. GALLERY_IMAGES TABLE
+-- Customer photos wearing Elmik Stitches pieces. Purely visual social
+-- proof — deliberately NOT linked to any row in `products`.
+-- ---------------------------------------------------------------------
+create table if not exists public.gallery_images (
+  id             uuid primary key default uuid_generate_v4(),
+  image_url      text not null,                      -- public Supabase Storage URL (gallery-images bucket)
+  caption        text,                                -- optional, e.g. customer name or short quote
+  display_order  integer not null default 0,          -- optional manual ordering in admin (lower = first)
+  created_at     timestamptz not null default now()
+);
+
+comment on table public.gallery_images is 'Customer photo gallery (social proof). Public readable, admin-only writable. Not linked to products.';
+
+create index if not exists idx_gallery_images_display_order on public.gallery_images (display_order asc, created_at desc);
+
+-- ---------------------------------------------------------------------
+-- 8. (OPTIONAL — PREFERRED) GLOBAL WHATSAPP ROUND-ROBIN COUNTER
 -- Enables true cross-session, cross-device fair alternation between
 -- the two WhatsApp numbers, instead of relying purely on client-side
 -- localStorage. Single-row table, atomically updated.
@@ -141,9 +158,9 @@ end;
 $$ language plpgsql;
 
 -- ---------------------------------------------------------------------
--- 8. ROW LEVEL SECURITY (RLS)
--- Rule: PUBLIC can read products (and only products). ONLY an
--- authenticated user (the single admin account) can insert/update/delete.
+-- 9. ROW LEVEL SECURITY (RLS)
+-- Rule: PUBLIC can read products/gallery_images. ONLY an authenticated
+-- user (the single admin account) can insert/update/delete.
 -- ---------------------------------------------------------------------
 
 -- --- products ---
@@ -206,6 +223,38 @@ create policy "Authenticated can update custom order requests"
 -- No public delete/select policy on custom_order_requests — customers
 -- can only submit (insert), never read others' submissions.
 
+-- --- gallery_images ---
+alter table public.gallery_images enable row level security;
+
+drop policy if exists "Public can read gallery images" on public.gallery_images;
+create policy "Public can read gallery images"
+  on public.gallery_images
+  for select
+  to anon, authenticated
+  using (true);
+
+drop policy if exists "Authenticated can insert gallery images" on public.gallery_images;
+create policy "Authenticated can insert gallery images"
+  on public.gallery_images
+  for insert
+  to authenticated
+  with check (true);
+
+drop policy if exists "Authenticated can update gallery images" on public.gallery_images;
+create policy "Authenticated can update gallery images"
+  on public.gallery_images
+  for update
+  to authenticated
+  using (true)
+  with check (true);
+
+drop policy if exists "Authenticated can delete gallery images" on public.gallery_images;
+create policy "Authenticated can delete gallery images"
+  on public.gallery_images
+  for delete
+  to authenticated
+  using (true);
+
 -- --- whatsapp_router (optional table) ---
 alter table public.whatsapp_router enable row level security;
 
@@ -218,7 +267,7 @@ alter table public.whatsapp_router enable row level security;
 grant execute on function public.get_next_whatsapp_index() to anon, authenticated;
 
 -- ---------------------------------------------------------------------
--- 9. SUPABASE AUTH — ADMIN USER SETUP
+-- 10. SUPABASE AUTH — ADMIN USER SETUP
 -- Supabase Auth is used purely for a single admin login; there is no
 -- public sign-up flow in the app UI.
 --
@@ -233,15 +282,21 @@ grant execute on function public.get_next_whatsapp_index() to anon, authenticate
 -- ---------------------------------------------------------------------
 
 -- ---------------------------------------------------------------------
--- 10. STORAGE — product-images BUCKET
--- Public bucket: images must be publicly viewable on the storefront
--- without auth, but only uploadable/deletable by the authenticated admin.
+-- 11. STORAGE — product-images AND gallery-images BUCKETS
+-- Both are public buckets: images must be publicly viewable on the
+-- storefront without auth, but only uploadable/deletable by the
+-- authenticated admin. Kept as two separate buckets so product photo
+-- uploads and gallery photo uploads never get mixed up in the admin UI.
 -- ---------------------------------------------------------------------
 insert into storage.buckets (id, name, public)
 values ('product-images', 'product-images', true)
 on conflict (id) do nothing;
 
--- Public read access to all files in the bucket
+insert into storage.buckets (id, name, public)
+values ('gallery-images', 'gallery-images', true)
+on conflict (id) do nothing;
+
+-- --- product-images policies ---
 drop policy if exists "Public can view product images" on storage.objects;
 create policy "Public can view product images"
   on storage.objects
@@ -249,7 +304,6 @@ create policy "Public can view product images"
   to anon, authenticated
   using (bucket_id = 'product-images');
 
--- Authenticated (admin) can upload
 drop policy if exists "Authenticated can upload product images" on storage.objects;
 create policy "Authenticated can upload product images"
   on storage.objects
@@ -257,7 +311,6 @@ create policy "Authenticated can upload product images"
   to authenticated
   with check (bucket_id = 'product-images');
 
--- Authenticated (admin) can update/replace
 drop policy if exists "Authenticated can update product images" on storage.objects;
 create policy "Authenticated can update product images"
   on storage.objects
@@ -266,13 +319,42 @@ create policy "Authenticated can update product images"
   using (bucket_id = 'product-images')
   with check (bucket_id = 'product-images');
 
--- Authenticated (admin) can delete
 drop policy if exists "Authenticated can delete product images" on storage.objects;
 create policy "Authenticated can delete product images"
   on storage.objects
   for delete
   to authenticated
   using (bucket_id = 'product-images');
+
+-- --- gallery-images policies ---
+drop policy if exists "Public can view gallery images" on storage.objects;
+create policy "Public can view gallery images"
+  on storage.objects
+  for select
+  to anon, authenticated
+  using (bucket_id = 'gallery-images');
+
+drop policy if exists "Authenticated can upload gallery images" on storage.objects;
+create policy "Authenticated can upload gallery images"
+  on storage.objects
+  for insert
+  to authenticated
+  with check (bucket_id = 'gallery-images');
+
+drop policy if exists "Authenticated can update gallery images" on storage.objects;
+create policy "Authenticated can update gallery images"
+  on storage.objects
+  for update
+  to authenticated
+  using (bucket_id = 'gallery-images')
+  with check (bucket_id = 'gallery-images');
+
+drop policy if exists "Authenticated can delete gallery images" on storage.objects;
+create policy "Authenticated can delete gallery images"
+  on storage.objects
+  for delete
+  to authenticated
+  using (bucket_id = 'gallery-images');
 
 -- =====================================================================
 -- END OF SCHEMA

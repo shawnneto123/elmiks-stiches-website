@@ -58,6 +58,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/gallery" className="hover:text-white transition">
+                  Customer Gallery
+                </Link>
+              </li>
+              <li>
                 <Link href="/custom-order" className="hover:text-white transition">
                   Request Custom Outfit
                 </Link>

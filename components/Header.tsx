@@ -8,6 +8,7 @@ import { BRAND } from "@/lib/constants";
 
 const NAV_LINKS = [
   { name: "Shop", href: "/shop" },
+  { name: "Gallery", href: "/gallery" },
   { name: "Custom Order", href: "/custom-order" },
   { name: "Size Guide", href: "/size-chart" },
   { name: "About", href: "/about" },
