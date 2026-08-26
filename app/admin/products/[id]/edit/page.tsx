@@ -25,7 +25,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
   }
 
   return (
-    <main className="p-4 sm:p-6 max-w-xl mx-auto space-y-6 w-full min-w-0">
+    <main className="p-4 sm:p-6 md:p-8 max-w-2xl mx-auto space-y-6 w-full min-w-0">
       {/* Top Header with Back Link */}
       <div className="space-y-1">
         <Link

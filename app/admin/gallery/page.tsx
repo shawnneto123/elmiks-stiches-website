@@ -20,7 +20,7 @@ export default async function AdminGalleryPage() {
   const images: GalleryImage[] = galleryImages || [];
 
   return (
-    <div className="space-y-6 w-full max-w-full min-w-0">
+    <main className="p-4 sm:p-6 md:p-8 max-w-3xl mx-auto space-y-6 w-full max-w-full min-w-0">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-neutral-200">
         <div>
           <h1 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900">
@@ -33,6 +33,6 @@ export default async function AdminGalleryPage() {
       </div>
 
       <GalleryManager initialImages={images} />
-    </div>
+    </main>
   );
 }

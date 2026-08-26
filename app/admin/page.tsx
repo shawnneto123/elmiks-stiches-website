@@ -20,7 +20,7 @@ export default async function AdminDashboardPage() {
   const outOfStockCount = allProducts.length - inStockCount;
 
   return (
-    <main className="p-4 sm:p-6 max-w-2xl mx-auto space-y-6 w-full min-w-0">
+    <main className="p-4 sm:p-6 md:p-8 max-w-3xl mx-auto space-y-6 w-full min-w-0">
       {/* Header & Quick Action */}
       <div className="flex items-center justify-between">
         <div>
