@@ -16,10 +16,19 @@ const inter = Inter({
   display: "swap",
 });
 
+function getSiteUrl(): string {
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  if (envUrl && !envUrl.includes("elmik-stitches.vercel.app")) {
+    return envUrl.startsWith("http") ? envUrl : `https://${envUrl}`;
+  }
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  return "https://elmiks-stiches-website.vercel.app";
+}
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://elmiks-stiches-website.vercel.app"
-  ),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: "Elmik Stitches | Ready-To-Wear & Bespoke Fashion",
     template: "%s | Elmik Stitches",
