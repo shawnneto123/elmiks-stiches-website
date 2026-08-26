@@ -18,7 +18,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://elmikstitches.com"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://elmiks-stiches-website.vercel.app"
   ),
   title: {
     default: "Elmik Stitches | Ready-To-Wear & Bespoke Fashion",

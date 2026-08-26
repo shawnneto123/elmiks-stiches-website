@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SizeChartTable } from "@/components/SizeChartTable";
 
 export const metadata = {
-  title: "Size Guide & Body Measurements | Elmik Stitches",
+  title: "Size Guide & Body Measurements",
   description:
     "Explore the Elmik Stitches sizing guide and measurement conversions to find your ideal fit for Ready-To-Wear gowns, dresses, and sets.",
 };

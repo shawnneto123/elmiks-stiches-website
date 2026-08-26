@@ -107,6 +107,10 @@ export default function ContactPage() {
             </div>
 
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
+              {/* Intentionally NOT using round-robin here: general inquiries 
+                   go to the primary/main number. Product-order traffic uses
+                   the load-balanced getNextWhatsAppNumber() in OrderButton
+                   and CustomOrderForm. */}
               <a
                 href={`https://wa.me/${primaryPhone.raw}?text=${encodeURIComponent("Hello Elmik Stitches, I have an inquiry about your collections.")}`}
                 target="_blank"
