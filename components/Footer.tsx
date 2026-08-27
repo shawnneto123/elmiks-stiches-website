@@ -14,9 +14,9 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-neutral-900 text-neutral-300 pt-14 pb-10 border-t border-neutral-800 w-full max-w-full overflow-hidden">
+    <footer className="bg-neutral-900 dark:bg-[#0B0B0C] text-neutral-300 dark:text-neutral-300 pt-14 pb-10 border-t border-neutral-800 dark:border-neutral-800/80 w-full max-w-full overflow-hidden transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 w-full min-w-0">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 pb-10 border-b border-neutral-800 w-full min-w-0">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 pb-10 border-b border-neutral-800 dark:border-neutral-800/80 w-full min-w-0">
           {/* Brand Info */}
           <div className="md:col-span-2 space-y-3.5 min-w-0">
             <h2 className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white">

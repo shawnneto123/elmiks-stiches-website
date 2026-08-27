@@ -153,7 +153,7 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
     <form onSubmit={handleSubmit} className="space-y-6 w-full min-w-0" noValidate>
       {/* Top Banner Error */}
       {formError && (
-        <div className="bg-red-50 border border-red-200 text-red-700 text-xs font-medium px-4 py-3 rounded-lg">
+        <div className="bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-xs font-medium px-4 py-3 rounded-lg">
           {formError}
         </div>
       )}
@@ -168,7 +168,7 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
           }}
         />
         {fieldErrors.image && (
-          <p className="text-xs text-red-600 font-medium mt-1.5">{fieldErrors.image}</p>
+          <p className="text-xs text-red-600 dark:text-red-400 font-medium mt-1.5">{fieldErrors.image}</p>
         )}
       </div>
 
@@ -176,7 +176,7 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
       <div>
         <label
           htmlFor="prod-title"
-          className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5"
+          className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-1.5"
         >
           Product Title <span className="text-red-500">*</span>
         </label>
@@ -189,12 +189,12 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
             setFieldErrors((prev) => ({ ...prev, title: "" }));
           }}
           placeholder="e.g. Adire Silk Wrap Gown"
-          className={`w-full px-4 py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-1 focus:ring-neutral-900 bg-white transition-colors ${
-            fieldErrors.title ? "border-red-500 ring-1 ring-red-500" : "border-neutral-200"
+          className={`w-full px-4 py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-1 focus:ring-brand-accent bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-colors ${
+            fieldErrors.title ? "border-red-500 ring-1 ring-red-500" : "border-neutral-200 dark:border-neutral-800"
           }`}
         />
         {fieldErrors.title && (
-          <p className="text-xs text-red-600 font-medium mt-1.5">{fieldErrors.title}</p>
+          <p className="text-xs text-red-600 dark:text-red-400 font-medium mt-1.5">{fieldErrors.title}</p>
         )}
       </div>
 
@@ -203,18 +203,18 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
         <div className="flex items-center justify-between mb-1.5">
           <label
             htmlFor="prod-price"
-            className="block text-xs font-semibold uppercase tracking-wider text-neutral-700"
+            className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300"
           >
             Price (₦) <span className="text-red-500">*</span>
           </label>
           {!isNaN(parsedPrice) && parsedPrice > 0 && (
-            <span className="text-xs font-serif font-bold text-neutral-900">
+            <span className="text-xs font-serif font-bold text-neutral-900 dark:text-brand-accent">
               Preview: {formatNaira(parsedPrice)}
             </span>
           )}
         </div>
         <div className="relative">
-          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 text-sm font-semibold">
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 dark:text-neutral-500 text-sm font-semibold">
             ₦
           </span>
           <input
@@ -228,13 +228,13 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
               setFieldErrors((prev) => ({ ...prev, price: "" }));
             }}
             placeholder="25000"
-            className={`w-full pl-8 pr-4 py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-1 focus:ring-neutral-900 bg-white transition-colors ${
-              fieldErrors.price ? "border-red-500 ring-1 ring-red-500" : "border-neutral-200"
+            className={`w-full pl-8 pr-4 py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-1 focus:ring-brand-accent bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-colors ${
+              fieldErrors.price ? "border-red-500 ring-1 ring-red-500" : "border-neutral-200 dark:border-neutral-800"
             }`}
           />
         </div>
         {fieldErrors.price && (
-          <p className="text-xs text-red-600 font-medium mt-1.5">{fieldErrors.price}</p>
+          <p className="text-xs text-red-600 dark:text-red-400 font-medium mt-1.5">{fieldErrors.price}</p>
         )}
       </div>
 
@@ -242,7 +242,7 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
       <div>
         <label
           htmlFor="prod-category"
-          className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5"
+          className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-1.5"
         >
           Category <span className="text-red-500">*</span>
         </label>
@@ -250,7 +250,7 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
           id="prod-category"
           value={category}
           onChange={(e) => setCategory(e.target.value as ProductCategory)}
-          className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-900 bg-white"
+          className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-neutral-800 text-sm focus:outline-none focus:ring-1 focus:ring-brand-accent bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors"
         >
           {CATEGORIES.map((cat) => (
             <option key={cat} value={cat}>
@@ -262,7 +262,7 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
 
       {/* Size Multi-Select Chips */}
       <div>
-        <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-2">
+        <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-2">
           Available Sizes <span className="text-red-500">*</span>
         </label>
         <div className="flex flex-wrap gap-2">
@@ -275,8 +275,8 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
                 onClick={() => toggleSize(size)}
                 className={`min-h-[42px] min-w-[42px] px-4 py-2 rounded-lg text-xs font-bold transition-all border ${
                   isSelected
-                    ? "bg-neutral-900 text-white border-neutral-900 shadow-xs"
-                    : "bg-white text-neutral-600 border-neutral-200 hover:border-neutral-400"
+                    ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white shadow-xs"
+                    : "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600"
                 }`}
               >
                 {size}
@@ -285,7 +285,7 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
           })}
         </div>
         {fieldErrors.sizes && (
-          <p className="text-xs text-red-600 font-medium mt-1.5">{fieldErrors.sizes}</p>
+          <p className="text-xs text-red-600 dark:text-red-400 font-medium mt-1.5">{fieldErrors.sizes}</p>
         )}
       </div>
 
@@ -293,7 +293,7 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
       <div>
         <label
           htmlFor="prod-colors"
-          className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5"
+          className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-1.5"
         >
           Colors (Optional, comma-separated)
         </label>
@@ -303,9 +303,9 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
           value={colorsInput}
           onChange={(e) => setColorsInput(e.target.value)}
           placeholder="e.g. Navy, Emerald, Gold"
-          className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-900 bg-white"
+          className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-neutral-800 text-sm focus:outline-none focus:ring-1 focus:ring-brand-accent bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-colors"
         />
-        <p className="text-[11px] text-neutral-400 mt-1">
+        <p className="text-[11px] text-neutral-400 dark:text-neutral-500 mt-1">
           Separate multiple color options with commas.
         </p>
       </div>
@@ -314,7 +314,7 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
       <div>
         <label
           htmlFor="prod-desc"
-          className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5"
+          className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-1.5"
         >
           Description (Optional)
         </label>
@@ -324,17 +324,17 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Detailed garment information, fabric type, styling notes..."
-          className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-900 bg-white resize-y"
+          className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-neutral-800 text-sm focus:outline-none focus:ring-1 focus:ring-brand-accent bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 resize-y transition-colors"
         />
       </div>
 
       {/* Stock Status Switch */}
-      <div className="flex items-center justify-between p-4 bg-white rounded-xl border border-neutral-200">
+      <div className="flex items-center justify-between p-4 bg-white dark:bg-neutral-900/90 rounded-xl border border-neutral-200 dark:border-neutral-800 transition-colors">
         <div>
-          <span className="block text-xs font-semibold uppercase tracking-wider text-neutral-800">
+          <span className="block text-xs font-semibold uppercase tracking-wider text-neutral-800 dark:text-neutral-200">
             In Stock Status
           </span>
-          <span className="text-[11px] text-neutral-400">
+          <span className="text-[11px] text-neutral-400 dark:text-neutral-500">
             {inStock
               ? "Item is available for immediate WhatsApp ordering"
               : "Item is marked as out of stock (Request Restock CTA)"}
@@ -344,7 +344,7 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
           type="button"
           onClick={() => setInStock(!inStock)}
           className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-            inStock ? "bg-brand-accent" : "bg-neutral-300"
+            inStock ? "bg-brand-accent" : "bg-neutral-300 dark:bg-neutral-700"
           }`}
         >
           <span
@@ -360,7 +360,7 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
         <button
           type="submit"
           disabled={isPending || isDeleting}
-          className="w-full bg-neutral-900 hover:bg-neutral-800 text-white py-3.5 rounded-xl text-sm font-semibold transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed text-center"
+          className="w-full bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 py-3.5 rounded-xl text-sm font-semibold transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed text-center"
         >
           {isPending
             ? isEditMode
@@ -376,7 +376,7 @@ export function ProductForm({ initialProduct }: ProductFormProps) {
             type="button"
             onClick={handleDelete}
             disabled={isPending || isDeleting}
-            className="w-full bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 py-3 rounded-xl text-xs font-semibold transition-all disabled:opacity-50 text-center"
+            className="w-full bg-red-50 dark:bg-red-950/40 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-600 dark:text-red-300 border border-red-200 dark:border-red-800 py-3 rounded-xl text-xs font-semibold transition-all disabled:opacity-50 text-center"
           >
             {isDeleting ? "Deleting Product..." : "Delete Product"}
           </button>

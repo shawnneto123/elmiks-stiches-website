@@ -55,10 +55,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-8 md:py-12 w-full max-w-full overflow-x-hidden min-w-0">
       <div className="mb-8">
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 mb-2">
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
           {category}
         </h1>
-        <p className="text-sm text-neutral-500">
+        <p className="text-sm text-neutral-500 dark:text-neutral-400">
           {filteredProducts.length}{" "}
           {filteredProducts.length === 1 ? "piece" : "pieces"} in this category
         </p>
@@ -68,10 +68,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
       {filteredProducts.length === 0 ? (
         <div className="py-20 text-center">
-          <p className="text-neutral-400 text-sm font-medium">
+          <p className="text-neutral-400 dark:text-neutral-500 text-sm font-medium">
             No products in this category yet.
           </p>
-          <p className="text-neutral-400 text-xs mt-1">
+          <p className="text-neutral-400 dark:text-neutral-500 text-xs mt-1">
             New {category.toLowerCase()} pieces will appear here once added.
           </p>
         </div>

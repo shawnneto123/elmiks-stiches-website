@@ -94,24 +94,24 @@ export function GalleryManager({ initialImages }: GalleryManagerProps) {
   return (
     <div className="space-y-8 w-full max-w-full min-w-0">
       {/* Upload Card */}
-      <div className="bg-white rounded-2xl border border-neutral-200/80 p-5 sm:p-7 shadow-xs space-y-5">
+      <div className="bg-white dark:bg-neutral-900/90 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 p-5 sm:p-7 shadow-xs space-y-5 transition-colors">
         <div>
-          <h2 className="font-serif text-lg sm:text-xl font-bold text-neutral-900">
+          <h2 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-neutral-50">
             Upload Customer Photo
           </h2>
-          <p className="text-xs text-neutral-500 mt-1">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 font-light">
             Add photos of clients and muses wearing Elmik Stitches garments (stored in the gallery-images bucket).
           </p>
         </div>
 
         {formError && (
-          <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
+          <div className="p-3.5 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-xs font-medium">
             {formError}
           </div>
         )}
 
         {formSuccess && (
-          <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium">
+          <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs font-medium">
             {formSuccess}
           </div>
         )}
@@ -128,9 +128,9 @@ export function GalleryManager({ initialImages }: GalleryManagerProps) {
           />
 
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-700">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
               Caption or Client Name{" "}
-              <span className="text-neutral-400 font-normal normal-case">
+              <span className="text-neutral-400 dark:text-neutral-500 font-normal normal-case">
                 (Optional)
               </span>
             </label>
@@ -139,14 +139,14 @@ export function GalleryManager({ initialImages }: GalleryManagerProps) {
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
               placeholder='e.g., "Chioma radiant in our emerald bespoke evening gown"'
-              className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-900 bg-white"
+              className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-neutral-800 text-sm focus:outline-none focus:ring-1 focus:ring-brand-accent bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-colors"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-700">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
               Display Order{" "}
-              <span className="text-neutral-400 font-normal normal-case">
+              <span className="text-neutral-400 dark:text-neutral-500 font-normal normal-case">
                 (Lower numbers appear first)
               </span>
             </label>
@@ -154,18 +154,18 @@ export function GalleryManager({ initialImages }: GalleryManagerProps) {
               type="number"
               value={displayOrder}
               onChange={(e) => setDisplayOrder(parseInt(e.target.value, 10) || 0)}
-              className="w-full sm:w-32 px-4 py-2.5 rounded-lg border border-neutral-200 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-900 bg-white"
+              className="w-full sm:w-32 px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-neutral-800 text-sm focus:outline-none focus:ring-1 focus:ring-brand-accent bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors"
             />
           </div>
 
           <button
             type="submit"
             disabled={isSubmitting || !imageUrl}
-            className="w-full min-h-[48px] bg-neutral-900 hover:bg-neutral-800 text-white py-3.5 rounded-xl text-sm font-semibold transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full min-h-[48px] bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 py-3.5 rounded-xl text-sm font-semibold transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {isSubmitting ? (
               <>
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-white dark:border-neutral-950 border-t-transparent rounded-full animate-spin" />
                 <span>Saving to Gallery...</span>
               </>
             ) : (
@@ -178,16 +178,16 @@ export function GalleryManager({ initialImages }: GalleryManagerProps) {
       {/* Existing Gallery Images List */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-serif text-lg font-bold text-neutral-900">
+          <h2 className="font-serif text-lg font-bold text-neutral-900 dark:text-neutral-50">
             Published Photos ({images.length})
           </h2>
-          <span className="text-xs text-neutral-400">
+          <span className="text-xs text-neutral-400 dark:text-neutral-500 font-light">
             Tap photo to view live layout
           </span>
         </div>
 
         {images.length === 0 ? (
-          <div className="p-12 text-center bg-white rounded-2xl border border-neutral-200/80 text-neutral-400 text-sm">
+          <div className="p-12 text-center bg-white dark:bg-neutral-900/90 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 text-neutral-400 dark:text-neutral-500 text-sm transition-colors">
             No gallery photos uploaded yet. Upload your first customer photo above!
           </div>
         ) : (
@@ -195,9 +195,9 @@ export function GalleryManager({ initialImages }: GalleryManagerProps) {
             {images.map((item) => (
               <div
                 key={item.id}
-                className="bg-white rounded-xl border border-neutral-200 overflow-hidden shadow-xs flex flex-col justify-between group"
+                className="bg-white dark:bg-neutral-900/90 rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden shadow-xs flex flex-col justify-between group transition-colors"
               >
-                <div className="relative aspect-[3/4] w-full bg-neutral-100 overflow-hidden">
+                <div className="relative aspect-[3/4] w-full bg-neutral-100 dark:bg-neutral-950 overflow-hidden">
                   <Image
                     src={item.image_url}
                     alt={item.caption || "Customer gallery photo"}
@@ -208,19 +208,19 @@ export function GalleryManager({ initialImages }: GalleryManagerProps) {
                 </div>
 
                 <div className="p-3 space-y-2 flex-1 flex flex-col justify-between">
-                  <p className="text-xs text-neutral-800 line-clamp-2 italic font-light">
+                  <p className="text-xs text-neutral-800 dark:text-neutral-200 line-clamp-2 italic font-light">
                     {item.caption || "(No caption provided)"}
                   </p>
 
-                  <div className="pt-2 border-t border-neutral-100 flex items-center justify-between">
-                    <span className="text-[10px] text-neutral-400">
+                  <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
+                    <span className="text-[10px] text-neutral-400 dark:text-neutral-500">
                       Order: {item.display_order}
                     </span>
                     <button
                       type="button"
                       onClick={() => handleDelete(item)}
                       disabled={deletingId === item.id}
-                      className="text-[11px] text-red-600 hover:text-red-700 font-semibold disabled:opacity-50 min-h-[36px] px-2 flex items-center"
+                      className="text-[11px] text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-semibold disabled:opacity-50 min-h-[36px] px-2 flex items-center"
                     >
                       {deletingId === item.id ? "Deleting..." : "Delete"}
                     </button>

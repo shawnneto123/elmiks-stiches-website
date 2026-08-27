@@ -2,7 +2,7 @@ import { BRAND } from "@/lib/constants";
 
 export function GoogleMapEmbed() {
   return (
-    <div className="w-full h-80 rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200">
+    <div className="w-full h-80 rounded-2xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 transition-colors">
       <iframe
         title="Elmik Stitches Store Location"
         width="100%"

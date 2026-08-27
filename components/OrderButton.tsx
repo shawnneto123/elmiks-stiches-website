@@ -33,7 +33,7 @@ export function OrderButton({ orderDetails, inStock, disabled }: OrderButtonProp
         type="button"
         onClick={handleClick}
         disabled={disabled || isLoading}
-        className="w-full sm:w-auto rounded-full border-2 border-brand-accent text-brand-accent hover:bg-brand-accent/10 px-8 py-3.5 text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed text-center active:scale-98"
+        className="w-full sm:w-auto rounded-full border-2 border-brand-accent text-brand-accent hover:bg-brand-accent/10 dark:hover:bg-brand-accent/20 px-8 py-3.5 text-sm font-semibold transition-all disabled:opacity-40 disabled:cursor-not-allowed text-center active:scale-98 shadow-2xs"
       >
         {isLoading ? "Connecting..." : "Request Restock via WhatsApp"}
       </button>
@@ -45,7 +45,7 @@ export function OrderButton({ orderDetails, inStock, disabled }: OrderButtonProp
       type="button"
       onClick={handleClick}
       disabled={disabled || isLoading}
-      className="w-full sm:w-auto rounded-full bg-brand-accent hover:bg-brand-accent-hover text-white px-8 py-3.5 text-sm font-semibold transition-all shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed text-center active:scale-98"
+      className="w-full sm:w-auto rounded-full bg-brand-accent hover:bg-brand-accentHover text-white dark:text-neutral-950 font-bold px-8 py-3.5 text-sm transition-all shadow-md hover:shadow-lg shadow-brand-accent/20 dark:shadow-brand-accent/30 disabled:opacity-40 disabled:cursor-not-allowed text-center active:scale-98"
     >
       {isLoading ? "Connecting..." : "Order via WhatsApp"}
     </button>

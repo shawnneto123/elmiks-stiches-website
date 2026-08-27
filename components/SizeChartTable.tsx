@@ -97,20 +97,20 @@ export function SizeChartTable() {
     <div className="space-y-6 w-full max-w-full overflow-hidden">
       {/* Top Controls: Unit Segmented Tabs + View Toggle */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full">
-        <span className="text-xs text-neutral-500 font-semibold uppercase tracking-wider">
+        <span className="text-xs text-neutral-500 dark:text-neutral-400 font-semibold uppercase tracking-wider">
           Measurement Unit
         </span>
 
         <div className="flex items-center gap-2">
           {/* Unit Toggle Tabs (44px min touch target) */}
-          <div className="grid grid-cols-2 p-1 bg-neutral-200/70 rounded-full w-full sm:w-auto">
+          <div className="grid grid-cols-2 p-1 bg-neutral-200/70 dark:bg-neutral-900 border border-transparent dark:border-neutral-800 rounded-full w-full sm:w-auto">
             <button
               type="button"
               onClick={() => setUnit("in")}
               className={`min-h-[44px] px-5 py-2 text-xs font-semibold rounded-full transition-all text-center flex items-center justify-center active:scale-95 ${
                 unit === "in"
-                  ? "bg-white text-neutral-900 shadow-xs font-bold"
-                  : "text-neutral-600 hover:text-neutral-900"
+                  ? "bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-xs font-bold"
+                  : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
               }`}
             >
               Inches (&quot;)
@@ -120,8 +120,8 @@ export function SizeChartTable() {
               onClick={() => setUnit("cm")}
               className={`min-h-[44px] px-5 py-2 text-xs font-semibold rounded-full transition-all text-center flex items-center justify-center active:scale-95 ${
                 unit === "cm"
-                  ? "bg-white text-neutral-900 shadow-xs font-bold"
-                  : "text-neutral-600 hover:text-neutral-900"
+                  ? "bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-xs font-bold"
+                  : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
               }`}
             >
               Centimeters (cm)
@@ -133,7 +133,7 @@ export function SizeChartTable() {
             <button
               type="button"
               onClick={() => setViewMode((prev) => (prev === "cards" ? "table" : "cards"))}
-              className="min-h-[44px] px-4 py-2 text-xs font-semibold text-neutral-700 border border-neutral-200 rounded-full bg-white hover:bg-neutral-50 active:scale-95 transition-all flex items-center justify-center shadow-2xs"
+              className="min-h-[44px] px-4 py-2 text-xs font-semibold text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-800 rounded-full bg-white dark:bg-neutral-900 hover:bg-neutral-50 dark:hover:bg-neutral-800 active:scale-95 transition-all flex items-center justify-center shadow-2xs"
             >
               {viewMode === "cards" ? "Full Matrix" : "Size Tabs"}
             </button>
@@ -154,8 +154,8 @@ export function SizeChartTable() {
                 onClick={() => setActiveSizeTab(size)}
                 className={`flex-1 min-w-[50px] min-h-[44px] py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center active:scale-95 ${
                   isActive
-                    ? "bg-brand-accent text-white shadow-xs"
-                    : "bg-white text-neutral-600 border border-neutral-200 hover:border-neutral-400"
+                    ? "bg-brand-accent text-white dark:text-neutral-950 shadow-xs font-bold"
+                    : "bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600"
                 }`}
               >
                 {size}
@@ -165,47 +165,47 @@ export function SizeChartTable() {
         </div>
 
         {/* Selected Size Breakdown Card */}
-        <div className="bg-white rounded-2xl p-5 border border-neutral-200 shadow-xs space-y-4 w-full min-w-0">
-          <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
+        <div className="bg-white dark:bg-neutral-900/90 rounded-2xl p-5 border border-neutral-200 dark:border-neutral-800 shadow-xs space-y-4 w-full min-w-0">
+          <div className="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-3">
             <div>
               <span className="text-[10px] uppercase font-bold tracking-widest text-brand-accent">
                 Selected Size
               </span>
-              <h3 className="font-serif text-2xl font-bold text-neutral-900">
+              <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-neutral-50">
                 Size {currentSizeRow.size}
               </h3>
             </div>
-            <div className="text-right text-xs text-neutral-500 space-y-0.5">
-              <p>UK: <strong className="text-neutral-900">{currentSizeRow.ukSize}</strong></p>
-              <p>US: <strong className="text-neutral-900">{currentSizeRow.usSize}</strong></p>
+            <div className="text-right text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+              <p>UK: <strong className="text-neutral-900 dark:text-white">{currentSizeRow.ukSize}</strong></p>
+              <p>US: <strong className="text-neutral-900 dark:text-white">{currentSizeRow.usSize}</strong></p>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3 text-xs w-full">
-            <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-100 min-w-0">
-              <span className="text-neutral-500 block mb-1 truncate">Bust / Chest</span>
-              <strong className="text-sm text-neutral-900 block truncate">
+            <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-950/70 border border-neutral-100 dark:border-neutral-800 min-w-0">
+              <span className="text-neutral-500 dark:text-neutral-400 block mb-1 truncate">Bust / Chest</span>
+              <strong className="text-sm text-neutral-900 dark:text-neutral-100 block truncate">
                 {unit === "in" ? currentSizeRow.bustIn : currentSizeRow.bustCm}
               </strong>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-100 min-w-0">
-              <span className="text-neutral-500 block mb-1 truncate">Natural Waist</span>
-              <strong className="text-sm text-neutral-900 block truncate">
+            <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-950/70 border border-neutral-100 dark:border-neutral-800 min-w-0">
+              <span className="text-neutral-500 dark:text-neutral-400 block mb-1 truncate">Natural Waist</span>
+              <strong className="text-sm text-neutral-900 dark:text-neutral-100 block truncate">
                 {unit === "in" ? currentSizeRow.waistIn : currentSizeRow.waistCm}
               </strong>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-100 min-w-0">
-              <span className="text-neutral-500 block mb-1 truncate">Hips</span>
-              <strong className="text-sm text-neutral-900 block truncate">
+            <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-950/70 border border-neutral-100 dark:border-neutral-800 min-w-0">
+              <span className="text-neutral-500 dark:text-neutral-400 block mb-1 truncate">Hips</span>
+              <strong className="text-sm text-neutral-900 dark:text-neutral-100 block truncate">
                 {unit === "in" ? currentSizeRow.hipsIn : currentSizeRow.hipsCm}
               </strong>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-neutral-50 border border-neutral-100 min-w-0">
-              <span className="text-neutral-500 block mb-1 truncate">Garment Length</span>
-              <strong className="text-sm text-neutral-900 block truncate">
+            <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-950/70 border border-neutral-100 dark:border-neutral-800 min-w-0">
+              <span className="text-neutral-500 dark:text-neutral-400 block mb-1 truncate">Garment Length</span>
+              <strong className="text-sm text-neutral-900 dark:text-neutral-100 block truncate">
                 {unit === "in" ? currentSizeRow.lengthIn : currentSizeRow.lengthCm}
               </strong>
             </div>
@@ -215,11 +215,11 @@ export function SizeChartTable() {
 
       {/* 2. Full Matrix Table (Always visible on desktop, toggleable on mobile) */}
       <div className={`${viewMode === "cards" ? "hidden sm:block" : "block"} w-full min-w-0`}>
-        <div className="overflow-x-auto rounded-xl border border-neutral-200 bg-white scrollbar-none touch-pan-x w-full max-w-full">
+        <div className="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/90 scrollbar-none touch-pan-x w-full max-w-full">
           <table className="w-full text-left border-collapse text-xs sm:text-sm whitespace-nowrap">
             <thead>
-              <tr className="bg-neutral-50 border-b border-neutral-200 text-neutral-600 font-medium">
-                <th className="py-3.5 px-4 font-semibold text-neutral-900">Size</th>
+              <tr className="bg-neutral-50 dark:bg-neutral-950 border-b border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 font-medium">
+                <th className="py-3.5 px-4 font-semibold text-neutral-900 dark:text-neutral-100">Size</th>
                 <th className="py-3.5 px-4">UK Equiv.</th>
                 <th className="py-3.5 px-4">US Equiv.</th>
                 <th className="py-3.5 px-4">Bust</th>
@@ -228,24 +228,24 @@ export function SizeChartTable() {
                 <th className="py-3.5 px-4">Length</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-100">
+            <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800">
               {SIZE_DATA.map((row) => (
-                <tr key={row.size} className="hover:bg-neutral-50/60 transition-colors">
-                  <td className="py-3.5 px-4 font-bold text-neutral-900 bg-neutral-50/40">
+                <tr key={row.size} className="hover:bg-neutral-50/60 dark:hover:bg-neutral-800/40 transition-colors">
+                  <td className="py-3.5 px-4 font-bold text-neutral-900 dark:text-neutral-100 bg-neutral-50/40 dark:bg-neutral-950/40">
                     {row.size}
                   </td>
-                  <td className="py-3.5 px-4 text-neutral-600">{row.ukSize}</td>
-                  <td className="py-3.5 px-4 text-neutral-600">{row.usSize}</td>
-                  <td className="py-3.5 px-4 text-neutral-800 font-medium">
+                  <td className="py-3.5 px-4 text-neutral-600 dark:text-neutral-300">{row.ukSize}</td>
+                  <td className="py-3.5 px-4 text-neutral-600 dark:text-neutral-300">{row.usSize}</td>
+                  <td className="py-3.5 px-4 text-neutral-800 dark:text-neutral-200 font-medium">
                     {unit === "in" ? row.bustIn : row.bustCm}
                   </td>
-                  <td className="py-3.5 px-4 text-neutral-800 font-medium">
+                  <td className="py-3.5 px-4 text-neutral-800 dark:text-neutral-200 font-medium">
                     {unit === "in" ? row.waistIn : row.waistCm}
                   </td>
-                  <td className="py-3.5 px-4 text-neutral-800 font-medium">
+                  <td className="py-3.5 px-4 text-neutral-800 dark:text-neutral-200 font-medium">
                     {unit === "in" ? row.hipsIn : row.hipsCm}
                   </td>
-                  <td className="py-3.5 px-4 text-neutral-800 font-medium">
+                  <td className="py-3.5 px-4 text-neutral-800 dark:text-neutral-200 font-medium">
                     {unit === "in" ? row.lengthIn : row.lengthCm}
                   </td>
                 </tr>
@@ -255,7 +255,7 @@ export function SizeChartTable() {
         </div>
       </div>
 
-      <p className="text-[11px] text-neutral-400 italic">
+      <p className="text-[11px] text-neutral-400 dark:text-neutral-500 italic">
         * Note: Measurements reflect standard body dimensions. For custom bespoke tailoring, select &quot;Custom Order&quot;.
       </p>
     </div>

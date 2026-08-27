@@ -18,8 +18,8 @@ export function CategoryFilterBar({ activeCategory }: CategoryFilterBarProps) {
           href="/shop"
           className={`shrink-0 rounded-full min-h-[40px] px-4 py-2 text-xs sm:text-sm font-medium transition-all active:scale-95 flex items-center justify-center ${
             !activeCategory
-              ? "bg-brand-accent text-white shadow-xs font-semibold"
-              : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 hover:text-neutral-900"
+              ? "bg-brand-accent text-white dark:text-neutral-950 font-bold shadow-xs"
+              : "bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white border border-transparent dark:border-neutral-800"
           }`}
         >
           All Pieces
@@ -32,8 +32,8 @@ export function CategoryFilterBar({ activeCategory }: CategoryFilterBarProps) {
               href={`/shop/${encodeURIComponent(category.toLowerCase())}`}
               className={`shrink-0 rounded-full min-h-[40px] px-4 py-2 text-xs sm:text-sm font-medium transition-all active:scale-95 flex items-center justify-center ${
                 isActive
-                  ? "bg-brand-accent text-white shadow-xs font-semibold"
-                  : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 hover:text-neutral-900"
+                  ? "bg-brand-accent text-white dark:text-neutral-950 font-bold shadow-xs"
+                  : "bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white border border-transparent dark:border-neutral-800"
               }`}
             >
               {category}

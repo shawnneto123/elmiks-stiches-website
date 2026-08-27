@@ -46,7 +46,7 @@ export function GalleryMasonry({ images }: GalleryMasonryProps) {
           <div
             key={item.id}
             onClick={() => setActiveImage(item)}
-            className="break-inside-avoid group relative cursor-pointer overflow-hidden rounded-xl bg-neutral-100 border border-neutral-200/80 shadow-xs hover:shadow-md transition-all duration-300"
+            className="break-inside-avoid group relative cursor-pointer overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xs hover:shadow-md transition-all duration-300"
           >
             <div className="relative w-full">
               {/* Natural aspect ratio image with next/image */}
@@ -93,8 +93,8 @@ export function GalleryMasonry({ images }: GalleryMasonryProps) {
 
             {/* Permanent Caption beneath card if exists */}
             {item.caption && (
-              <div className="p-3 bg-white border-t border-neutral-100">
-                <p className="text-xs text-neutral-700 italic leading-relaxed">
+              <div className="p-3 bg-white dark:bg-neutral-900 border-t border-neutral-100 dark:border-neutral-800 transition-colors">
+                <p className="text-xs text-neutral-700 dark:text-neutral-300 italic leading-relaxed">
                   {item.caption}
                 </p>
               </div>

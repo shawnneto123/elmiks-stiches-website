@@ -44,7 +44,7 @@ export function AdminNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-neutral-100">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-[#141417] border-t border-neutral-100 dark:border-neutral-800 transition-colors">
       <div className="flex items-center justify-around max-w-lg mx-auto">
         {NAV_ITEMS.map((item) => {
           const isActive =
@@ -58,8 +58,8 @@ export function AdminNav() {
               href={item.href}
               className={`flex flex-col items-center justify-center py-2.5 px-4 min-h-[56px] transition-colors ${
                 isActive
-                  ? "text-brand-accent"
-                  : "text-neutral-400 hover:text-neutral-700"
+                  ? "text-brand-accent font-semibold"
+                  : "text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-200"
               }`}
             >
               {item.icon}

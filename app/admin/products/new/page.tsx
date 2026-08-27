@@ -8,7 +8,7 @@ export default function NewProductPage() {
       <div className="space-y-1">
         <Link
           href="/admin"
-          className="inline-flex items-center gap-1 text-xs text-neutral-500 hover:text-neutral-900 transition-colors mb-2"
+          className="inline-flex items-center gap-1 text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors mb-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -25,16 +25,16 @@ export default function NewProductPage() {
           </svg>
           Back to Dashboard
         </Link>
-        <h1 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900">
+        <h1 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-50">
           Add New Product
         </h1>
-        <p className="text-xs text-neutral-500">
+        <p className="text-xs text-neutral-500 dark:text-neutral-400 font-light">
           Upload photo and enter garment details to add to the Elmik Stitches catalog.
         </p>
       </div>
 
       {/* Product Creation Form */}
-      <div className="bg-white p-5 sm:p-6 rounded-2xl border border-neutral-200 shadow-2xs">
+      <div className="bg-white dark:bg-neutral-900/90 p-5 sm:p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-2xs transition-colors">
         <ProductForm />
       </div>
     </main>

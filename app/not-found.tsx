@@ -8,24 +8,24 @@ export default function NotFound() {
           404 &bull; Error
         </span>
 
-        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-neutral-900 tracking-tight leading-tight">
+        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-neutral-900 dark:text-neutral-50 tracking-tight leading-tight">
           Page Not Found
         </h1>
 
-        <p className="text-sm sm:text-base text-neutral-600 leading-relaxed font-light">
+        <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-light">
           The garment or page you are looking for does not exist or has been moved. Explore our catalog or return to the storefront.
         </p>
 
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
           <Link
             href="/"
-            className="w-full sm:w-auto rounded-full bg-neutral-900 text-white px-8 py-3.5 text-xs font-semibold hover:bg-neutral-800 transition shadow-sm text-center"
+            className="w-full sm:w-auto rounded-full bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 px-8 py-3.5 text-xs font-semibold transition shadow-sm text-center"
           >
             Return to Home
           </Link>
           <Link
             href="/shop"
-            className="w-full sm:w-auto rounded-full border border-neutral-300 text-neutral-800 hover:text-neutral-900 hover:border-neutral-400 bg-white px-8 py-3.5 text-xs font-semibold transition text-center"
+            className="w-full sm:w-auto rounded-full border border-neutral-300 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 hover:text-neutral-900 dark:hover:text-white hover:border-neutral-400 dark:hover:border-neutral-500 bg-white dark:bg-neutral-900 px-8 py-3.5 text-xs font-semibold transition text-center"
           >
             Explore Catalog
           </Link>

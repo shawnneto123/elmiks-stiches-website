@@ -8,7 +8,7 @@ interface ProductGridProps {
 export function ProductGrid({ products }: ProductGridProps) {
   if (products.length === 0) {
     return (
-      <div className="py-12 text-center text-neutral-500 text-sm w-full">
+      <div className="py-12 text-center text-neutral-500 dark:text-neutral-400 text-sm w-full">
         No products found.
       </div>
     );

@@ -98,13 +98,13 @@ export function ImageUploader({
   return (
     <div className="space-y-3 w-full min-w-0">
       <div className="flex items-center justify-between">
-        <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-700">
+        <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
           {label} <span className="text-red-500">*</span>
         </label>
         <button
           type="button"
           onClick={() => setShowUrlInput(!showUrlInput)}
-          className="text-[11px] text-neutral-500 hover:text-neutral-900 underline transition-colors"
+          className="text-[11px] text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white underline transition-colors"
         >
           {showUrlInput ? "Hide URL input" : "Or enter image link"}
         </button>
@@ -118,12 +118,12 @@ export function ImageUploader({
             value={manualUrl}
             onChange={(e) => setManualUrl(e.target.value)}
             placeholder="https://... image link"
-            className="flex-1 px-3 py-2 text-xs rounded-lg border border-neutral-200 focus:outline-none focus:ring-1 focus:ring-neutral-900 bg-white"
+            className="flex-1 px-3 py-2 text-xs rounded-lg border border-neutral-200 dark:border-neutral-800 focus:outline-none focus:ring-1 focus:ring-brand-accent bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-colors"
           />
           <button
             type="button"
             onClick={handleManualUrlSubmit}
-            className="px-3 py-2 text-xs bg-neutral-900 text-white rounded-lg font-medium hover:bg-neutral-800 shrink-0"
+            className="px-3 py-2 text-xs bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 rounded-lg font-semibold shrink-0 transition-colors"
           >
             Apply
           </button>
@@ -132,7 +132,7 @@ export function ImageUploader({
 
       {/* Preview Container or Upload Actions */}
       {imageUrl ? (
-        <div className="relative aspect-[3/4] max-w-[240px] mx-auto rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200 shadow-sm group">
+        <div className="relative aspect-[3/4] max-w-[240px] mx-auto rounded-xl overflow-hidden bg-neutral-100 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 shadow-sm group">
           <Image
             src={imageUrl}
             alt="Product Preview"
@@ -140,25 +140,25 @@ export function ImageUploader({
             sizes="240px"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-3">
+          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-3">
             <button
               type="button"
               onClick={() => libraryInputRef.current?.click()}
-              className="w-full max-w-[160px] px-3 py-1.5 bg-white/95 hover:bg-white text-neutral-900 text-xs font-medium rounded-lg shadow-sm text-center"
+              className="w-full max-w-[160px] px-3 py-1.5 bg-white/95 hover:bg-white text-neutral-900 text-xs font-semibold rounded-lg shadow-sm text-center transition-all"
             >
               Choose from Library
             </button>
             <button
               type="button"
               onClick={() => cameraInputRef.current?.click()}
-              className="w-full max-w-[160px] px-3 py-1.5 bg-white/95 hover:bg-white text-neutral-900 text-xs font-medium rounded-lg shadow-sm text-center"
+              className="w-full max-w-[160px] px-3 py-1.5 bg-white/95 hover:bg-white text-neutral-900 text-xs font-semibold rounded-lg shadow-sm text-center transition-all"
             >
               Take New Photo
             </button>
             <button
               type="button"
               onClick={handleRemoveImage}
-              className="w-full max-w-[160px] px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-lg shadow-sm text-center"
+              className="w-full max-w-[160px] px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-lg shadow-sm text-center transition-all"
             >
               Remove
             </button>
@@ -168,18 +168,18 @@ export function ImageUploader({
         <div className="space-y-3">
           {/* Main Drag/Tap Upload Zone */}
           <div
-            className={`border-2 border-dashed rounded-xl p-6 sm:p-8 text-center transition-all bg-white hover:bg-neutral-50 flex flex-col items-center justify-center gap-3 ${
-              isUploading ? "border-brand-accent bg-brand-accent/5" : "border-neutral-200"
+            className={`border-2 border-dashed rounded-xl p-6 sm:p-8 text-center transition-all bg-white dark:bg-neutral-950/60 hover:bg-neutral-50 dark:hover:bg-neutral-900/60 flex flex-col items-center justify-center gap-3 ${
+              isUploading ? "border-brand-accent bg-brand-accent/5 dark:bg-brand-accent/10" : "border-neutral-200 dark:border-neutral-800"
             }`}
           >
             {isUploading ? (
               <div className="space-y-2 py-4">
                 <div className="w-8 h-8 mx-auto border-2 border-brand-accent border-t-transparent rounded-full animate-spin" />
-                <p className="text-xs font-medium text-neutral-700">Uploading photo to Supabase...</p>
+                <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">Uploading photo to Supabase...</p>
               </div>
             ) : (
               <>
-                <div className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-500">
+                <div className="w-12 h-12 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-500 dark:text-neutral-400">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="22"
@@ -197,10 +197,10 @@ export function ImageUploader({
                   </svg>
                 </div>
                 <div className="space-y-1 text-center">
-                  <p className="text-xs font-semibold text-neutral-800">
+                  <p className="text-xs font-semibold text-neutral-800 dark:text-neutral-200">
                     Upload Product Photograph
                   </p>
-                  <p className="text-[11px] text-neutral-400">
+                  <p className="text-[11px] text-neutral-400 dark:text-neutral-500">
                     Portrait 3:4 recommended (JPG, PNG, WebP up to 8MB)
                   </p>
                 </div>
@@ -210,7 +210,7 @@ export function ImageUploader({
                   <button
                     type="button"
                     onClick={() => libraryInputRef.current?.click()}
-                    className="flex-1 min-h-[42px] px-4 py-2.5 rounded-lg border border-neutral-300 hover:border-neutral-400 bg-white hover:bg-neutral-50 text-neutral-800 text-xs font-semibold transition-all flex items-center justify-center gap-2 shadow-2xs active:scale-98"
+                    className="flex-1 min-h-[42px] px-4 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-600 bg-white dark:bg-neutral-900 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs font-semibold transition-all flex items-center justify-center gap-2 shadow-2xs active:scale-98"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -231,7 +231,7 @@ export function ImageUploader({
                   <button
                     type="button"
                     onClick={() => cameraInputRef.current?.click()}
-                    className="flex-1 min-h-[42px] px-4 py-2.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold transition-all flex items-center justify-center gap-2 shadow-2xs active:scale-98"
+                    className="flex-1 min-h-[42px] px-4 py-2.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-all flex items-center justify-center gap-2 shadow-2xs active:scale-98"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -277,7 +277,7 @@ export function ImageUploader({
 
       {/* Error Message */}
       {uploadError && (
-        <p className="text-xs text-red-600 font-medium">{uploadError}</p>
+        <p className="text-xs text-red-600 dark:text-red-400 font-medium">{uploadError}</p>
       )}
     </div>
   );

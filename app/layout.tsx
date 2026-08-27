@@ -3,6 +3,7 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -75,14 +76,22 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${playfair.variable} ${inter.variable} w-full max-w-full overflow-x-hidden`}
     >
-      <body className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-neutral-900 antialiased font-sans flex flex-col">
-        <Header />
-        <div className="flex-1 w-full max-w-full flex flex-col min-w-0 overflow-x-hidden">
-          {children}
-        </div>
-        <Footer />
+      <body className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-neutral-900 dark:bg-[#0F0F11] dark:text-neutral-50 antialiased font-sans flex flex-col">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <div className="flex-1 w-full max-w-full flex flex-col min-w-0 overflow-x-hidden">
+            {children}
+          </div>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

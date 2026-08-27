@@ -23,31 +23,31 @@ export default async function HomePage() {
   return (
     <main className="flex-1 w-full max-w-full overflow-x-hidden">
       {/* 1. Hero Section */}
-      <section className="relative bg-neutral-50/80 border-b border-neutral-100 py-14 sm:py-20 md:py-28 px-4 sm:px-6 md:px-10 w-full overflow-hidden">
+      <section className="relative bg-neutral-50/80 dark:bg-neutral-950/60 border-b border-neutral-100 dark:border-neutral-800/80 py-14 sm:py-20 md:py-28 px-4 sm:px-6 md:px-10 w-full overflow-hidden transition-colors">
         <div className="max-w-4xl mx-auto text-center space-y-6 w-full min-w-0">
-          <p className="text-xs uppercase tracking-[0.25em] font-semibold text-neutral-500">
+          <p className="text-xs uppercase tracking-[0.25em] font-semibold text-neutral-500 dark:text-neutral-400">
             Abuja Atelier &bull; Worldwide Delivery
           </p>
 
-          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-neutral-900 leading-[1.15] break-words">
+          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 leading-[1.15] break-words">
             Contemporary Elegance, <br className="hidden sm:inline" />
             Tailored to Perfection.
           </h1>
 
-          <p className="text-neutral-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-light">
             Discover exquisite Ready-To-Wear collections and bespoke tailoring crafted for modern silhouettes.
           </p>
 
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full">
             <Link
               href="/shop"
-              className="w-full sm:w-auto rounded-full bg-neutral-900 text-white px-8 py-3.5 text-sm font-medium hover:bg-neutral-800 transition shadow-sm text-center"
+              className="w-full sm:w-auto rounded-full bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 px-8 py-3.5 text-sm font-medium transition shadow-sm text-center"
             >
               Shop Collection
             </Link>
             <Link
               href="/custom-order"
-              className="w-full sm:w-auto rounded-full bg-white text-neutral-900 border border-neutral-300 px-8 py-3.5 text-sm font-medium hover:bg-neutral-50 transition text-center"
+              className="w-full sm:w-auto rounded-full bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-8 py-3.5 text-sm font-medium hover:bg-neutral-50 dark:hover:bg-neutral-800 transition text-center"
             >
               Request Custom Outfit
             </Link>
@@ -55,12 +55,12 @@ export default async function HomePage() {
 
           {/* Quick Category Chips */}
           <div className="pt-6 w-full flex items-center justify-start sm:justify-center gap-2 overflow-x-auto scrollbar-none touch-pan-x pb-2">
-            <span className="text-xs text-neutral-400 font-medium mr-1 shrink-0">Quick Browse:</span>
+            <span className="text-xs text-neutral-400 dark:text-neutral-500 font-medium mr-1 shrink-0">Quick Browse:</span>
             {CATEGORIES.slice(0, 5).map((cat) => (
               <Link
                 key={cat}
                 href={`/shop/${encodeURIComponent(cat.toLowerCase())}`}
-                className="shrink-0 min-h-[40px] px-4 py-2 rounded-full bg-white hover:bg-neutral-100 text-neutral-700 hover:text-neutral-900 border border-neutral-200 transition text-xs font-medium flex items-center justify-center active:scale-95 shadow-2xs whitespace-nowrap"
+                className="shrink-0 min-h-[40px] px-4 py-2 rounded-full bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white border border-neutral-200 dark:border-neutral-800 transition text-xs font-medium flex items-center justify-center active:scale-95 shadow-2xs whitespace-nowrap"
               >
                 {cat}
               </Link>
@@ -73,16 +73,16 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-14 md:py-20 w-full overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-10 gap-3">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+            <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
               Curated Highlights
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 mt-1">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-neutral-50 mt-1">
               Featured New Arrivals
             </h2>
           </div>
           <Link
             href="/shop"
-            className="text-sm font-medium text-neutral-900 hover:text-neutral-600 underline underline-offset-4"
+            className="text-sm font-medium text-neutral-900 dark:text-neutral-200 hover:text-neutral-600 dark:hover:text-white underline underline-offset-4"
           >
             View All Pieces →
           </Link>
@@ -90,7 +90,7 @@ export default async function HomePage() {
 
         {featuredProducts.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-neutral-400 text-sm">
+            <p className="text-neutral-400 dark:text-neutral-500 text-sm">
               New pieces coming soon — check back shortly.
             </p>
           </div>
@@ -101,7 +101,7 @@ export default async function HomePage() {
               <div className="col-span-2 lg:col-span-2 lg:row-span-2 group flex flex-col min-w-0">
                 <Link
                   href={`/product/${heroProduct.id}`}
-                  className="relative aspect-[3/4] lg:aspect-[4/5] w-full overflow-hidden bg-neutral-100 rounded-lg flex flex-col justify-end p-4 sm:p-6 md:p-8 transition"
+                  className="relative aspect-[3/4] lg:aspect-[4/5] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900 rounded-lg flex flex-col justify-end p-4 sm:p-6 md:p-8 transition border border-transparent dark:border-neutral-800/80"
                 >
                   {heroProduct.image_url ? (
                     <Image
@@ -113,18 +113,18 @@ export default async function HomePage() {
                       priority
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-neutral-200/60 flex items-center justify-center text-neutral-400 text-sm font-serif italic">
+                    <div className="absolute inset-0 bg-neutral-200/60 dark:bg-neutral-800/60 flex items-center justify-center text-neutral-400 text-sm font-serif italic">
                       [ {heroProduct.title} ]
                     </div>
                   )}
-                  <div className="relative z-10 bg-white/95 backdrop-blur-sm p-3.5 sm:p-5 rounded-xl border border-neutral-200/60 shadow-sm space-y-1">
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-500">
+                  <div className="relative z-10 bg-white/95 dark:bg-neutral-900/90 backdrop-blur-sm p-3.5 sm:p-5 rounded-xl border border-neutral-200/60 dark:border-neutral-800 shadow-sm space-y-1">
+                    <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-500 dark:text-neutral-400">
                       Featured Statement Piece
                     </span>
-                    <h3 className="font-serif text-base sm:text-lg lg:text-xl font-bold text-neutral-900 group-hover:text-neutral-700 transition truncate">
+                    <h3 className="font-serif text-base sm:text-lg lg:text-xl font-bold text-neutral-900 dark:text-neutral-50 group-hover:text-neutral-700 dark:group-hover:text-brand-accent transition truncate">
                       {heroProduct.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-neutral-500 font-normal">
+                    <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 font-normal">
                       {formatNaira(heroProduct.price)}
                     </p>
                   </div>
@@ -136,7 +136,7 @@ export default async function HomePage() {
             {gridProducts.map((product) => (
               <div key={product.id} className="group flex flex-col min-w-0">
                 <Link href={`/product/${product.id}`} className="block w-full min-w-0">
-                  <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-100 rounded-lg mb-2.5">
+                  <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900 rounded-lg mb-2.5 border border-transparent dark:border-neutral-800/80">
                     {product.image_url ? (
                       <Image
                         src={product.image_url}
@@ -146,7 +146,7 @@ export default async function HomePage() {
                         className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-xs text-neutral-400 text-center p-3">
+                      <div className="w-full h-full flex items-center justify-center text-xs text-neutral-400 dark:text-neutral-500 text-center p-3">
                         <span>[ {product.title} ]</span>
                       </div>
                     )}
@@ -157,10 +157,10 @@ export default async function HomePage() {
                     )}
                   </div>
                   <div className="space-y-0.5">
-                    <h3 className="text-xs sm:text-sm font-medium text-neutral-900 group-hover:text-neutral-600 transition truncate">
+                    <h3 className="text-xs sm:text-sm font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-600 dark:group-hover:text-brand-accent transition truncate">
                       {product.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-neutral-500 font-normal">
+                    <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 font-normal">
                       {formatNaira(product.price)}
                     </p>
                   </div>
@@ -172,16 +172,16 @@ export default async function HomePage() {
       </section>
 
       {/* 3. Bespoke Custom Tailoring Spotlight */}
-      <section className="bg-neutral-900 text-white py-14 md:py-20 px-4 sm:px-6 md:px-10 w-full overflow-hidden">
+      <section className="bg-neutral-900 dark:bg-[#121215] text-white py-14 md:py-20 px-4 sm:px-6 md:px-10 w-full overflow-hidden border-t border-neutral-800/80 transition-colors">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center w-full min-w-0">
           <div className="space-y-5">
             <span className="text-xs font-semibold uppercase tracking-wider text-brand-gold-light">
               Bespoke Craftsmanship
             </span>
-            <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+            <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight text-white">
               Have a Specific Vision in Mind?
             </h2>
-            <p className="text-neutral-300 text-sm sm:text-base leading-relaxed max-w-xl font-light">
+            <p className="text-neutral-300 dark:text-neutral-300 text-sm sm:text-base leading-relaxed max-w-xl font-light">
               Beyond our ready-to-wear collections, our master tailors in Abuja craft one-of-a-kind bespoke garments for weddings, formal galas, and special milestones.
             </p>
 
@@ -213,7 +213,7 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="bg-neutral-800/80 rounded-2xl p-6 sm:p-8 md:p-10 border border-neutral-700/80 space-y-5 w-full min-w-0">
+          <div className="bg-neutral-800/80 dark:bg-[#18181C] rounded-2xl p-6 sm:p-8 md:p-10 border border-neutral-700/80 dark:border-neutral-800 space-y-5 w-full min-w-0">
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">The Elmik Stitches Promise</h3>
             <ul className="space-y-3.5 text-xs sm:text-sm text-neutral-300">
               <li className="flex items-start gap-2.5">
@@ -238,16 +238,16 @@ export default async function HomePage() {
 
       {/* 4. Brand Heritage / Visit Store Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-14 md:py-16 text-center space-y-3.5 w-full overflow-hidden">
-        <h2 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900">
+        <h2 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-50">
           Visit Our Abuja Studio
         </h2>
-        <p className="text-neutral-600 text-xs sm:text-sm max-w-xl mx-auto">
+        <p className="text-neutral-600 dark:text-neutral-400 text-xs sm:text-sm max-w-xl mx-auto">
           Experience our garments in person at our physical store in Jabi, Abuja. Open Monday to Saturday, 9:00 AM – 5:30 PM.
         </p>
         <div className="pt-2">
           <Link
             href="/contact"
-            className="inline-flex items-center text-xs sm:text-sm font-medium text-neutral-900 hover:text-neutral-600 underline underline-offset-4"
+            className="inline-flex items-center text-xs sm:text-sm font-medium text-neutral-900 dark:text-neutral-200 hover:text-neutral-600 dark:hover:text-white underline underline-offset-4"
           >
             View Map &amp; Store Information →
           </Link>

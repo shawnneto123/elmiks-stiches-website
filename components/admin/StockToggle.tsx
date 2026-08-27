@@ -35,13 +35,13 @@ export function StockToggle({ productId, initialInStock }: StockToggleProps) {
       title={inStock ? "Click to mark Out of Stock" : "Click to mark In Stock"}
       className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all min-h-[36px] ${
         inStock
-          ? "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
-          : "bg-neutral-100 text-neutral-500 border border-neutral-200 hover:bg-neutral-200"
+          ? "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/40"
+          : "bg-neutral-100 dark:bg-neutral-800/80 text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-800"
       } ${isPending ? "opacity-60 cursor-wait" : ""}`}
     >
       <span
         className={`w-2 h-2 rounded-full transition-colors ${
-          inStock ? "bg-emerald-500" : "bg-neutral-400"
+          inStock ? "bg-emerald-500 dark:bg-emerald-400" : "bg-neutral-400 dark:bg-neutral-500"
         }`}
       />
       <span>{inStock ? "In Stock" : "Out of Stock"}</span>

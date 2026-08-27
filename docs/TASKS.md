@@ -107,3 +107,20 @@
 - [x] Build mobile-first admin CMS page `app/admin/gallery/page.tsx` and `components/admin/GalleryManager.tsx`.
 - [x] Add "Gallery" tab to `components/admin/AdminNav.tsx` bottom navigation.
 
+---
+
+## Phase 7 — Luxury Editorial Dark Mode System
+
+- [x] Install and configure `next-themes` with `attribute="class"` and `defaultTheme="system"`.
+- [x] Configure Tailwind CSS v4 class-based dark variant in `tailwind.config.ts` and `app/globals.css`.
+- [x] Create `components/ThemeProvider.tsx` and wrap root layout with `suppressHydrationWarning`.
+- [x] Create `components/ThemeToggle.tsx` with animated Sun/Moon icons and hydration safety.
+- [x] Integrate ThemeToggle into desktop navigation, mobile drawer, and admin top bar.
+- [x] Apply luxury charcoal neutrals (`#0F0F11`, `#121214`), fine dark borders (`border-neutral-800`), and gold accents (`--brand-accent`) across all public storefront routes (Home, Shop, Category pages, Product Detail, Custom Order, Size Guide, Gallery, About, Contact, 404).
+- [x] Apply dark mode styling to Size Chart Modal, Gallery Masonry cards, and Lightbox dialog.
+- [x] Apply high-contrast gold CTA dark styling to `components/OrderButton.tsx` for both in-stock and out-of-stock states.
+- [x] Apply complete dark mode coverage across the `/admin` suite (Login, Inventory Dashboard, Stat cards, Stock toggle, Product form, Image uploader, Gallery manager).
+- [x] Verify WCAG AA contrast compliance across all primary typography and buttons.
+- [x] Run `npm run build` with 0 errors and zero hydration mismatch.
+
+

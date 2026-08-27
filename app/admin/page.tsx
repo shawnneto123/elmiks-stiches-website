@@ -24,16 +24,16 @@ export default async function AdminDashboardPage() {
       {/* Header & Quick Action */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900">
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-50">
             Inventory
           </h1>
-          <p className="text-xs text-neutral-500 mt-0.5">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
             Manage store catalog and WhatsApp ordering status
           </p>
         </div>
         <Link
           href="/admin/products/new"
-          className="bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition-colors shadow-xs shrink-0"
+          className="bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold px-4 py-2.5 rounded-lg transition-colors shadow-xs shrink-0"
         >
           + Add Product
         </Link>
@@ -41,27 +41,27 @@ export default async function AdminDashboardPage() {
 
       {/* Inventory Stat Cards */}
       <div className="grid grid-cols-3 gap-2 sm:gap-3">
-        <div className="bg-white p-3 sm:p-4 rounded-xl border border-neutral-200 text-center">
-          <span className="block text-[10px] uppercase font-bold tracking-wider text-neutral-400">
+        <div className="bg-white dark:bg-neutral-900/90 p-3 sm:p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 text-center transition-colors">
+          <span className="block text-[10px] uppercase font-bold tracking-wider text-neutral-400 dark:text-neutral-500">
             Total
           </span>
-          <span className="font-serif text-xl sm:text-2xl font-bold text-neutral-900">
+          <span className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white">
             {allProducts.length}
           </span>
         </div>
-        <div className="bg-white p-3 sm:p-4 rounded-xl border border-neutral-200 text-center">
-          <span className="block text-[10px] uppercase font-bold tracking-wider text-emerald-600">
+        <div className="bg-white dark:bg-neutral-900/90 p-3 sm:p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 text-center transition-colors">
+          <span className="block text-[10px] uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400">
             In Stock
           </span>
-          <span className="font-serif text-xl sm:text-2xl font-bold text-emerald-700">
+          <span className="font-serif text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-400">
             {inStockCount}
           </span>
         </div>
-        <div className="bg-white p-3 sm:p-4 rounded-xl border border-neutral-200 text-center">
-          <span className="block text-[10px] uppercase font-bold tracking-wider text-neutral-400">
+        <div className="bg-white dark:bg-neutral-900/90 p-3 sm:p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 text-center transition-colors">
+          <span className="block text-[10px] uppercase font-bold tracking-wider text-neutral-400 dark:text-neutral-500">
             Out
           </span>
-          <span className="font-serif text-xl sm:text-2xl font-bold text-neutral-600">
+          <span className="font-serif text-xl sm:text-2xl font-bold text-neutral-600 dark:text-neutral-400">
             {outOfStockCount}
           </span>
         </div>
@@ -69,27 +69,27 @@ export default async function AdminDashboardPage() {
 
       {/* Product List */}
       {error && (
-        <div className="p-4 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl">
+        <div className="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-xs rounded-xl">
           Error loading products: {error.message}
         </div>
       )}
 
       {allProducts.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-neutral-200 p-8 text-center space-y-3">
-          <div className="w-12 h-12 rounded-full bg-neutral-100 mx-auto flex items-center justify-center text-neutral-400">
+        <div className="bg-white dark:bg-neutral-900/90 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-8 text-center space-y-3 transition-colors">
+          <div className="w-12 h-12 rounded-full bg-neutral-100 dark:bg-neutral-800 mx-auto flex items-center justify-center text-neutral-400 dark:text-neutral-500">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
             </svg>
           </div>
-          <h3 className="font-serif text-base font-bold text-neutral-900">
+          <h3 className="font-serif text-base font-bold text-neutral-900 dark:text-neutral-50">
             No products found
           </h3>
-          <p className="text-xs text-neutral-500 max-w-xs mx-auto">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-xs mx-auto font-light">
             Your catalog is currently empty. Tap below to upload your first luxury piece.
           </p>
           <Link
             href="/admin/products/new"
-            className="inline-block bg-neutral-900 text-white text-xs font-semibold px-5 py-2.5 rounded-lg mt-2"
+            className="inline-block bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold px-5 py-2.5 rounded-lg mt-2 transition shadow-xs"
           >
             Add Your First Product
           </Link>
@@ -99,10 +99,10 @@ export default async function AdminDashboardPage() {
           {allProducts.map((product) => (
             <div
               key={product.id}
-              className="bg-white p-3.5 sm:p-4 rounded-xl border border-neutral-200 flex items-center gap-3 sm:gap-4 shadow-2xs hover:border-neutral-300 transition-all"
+              className="bg-white dark:bg-neutral-900/90 p-3.5 sm:p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 flex items-center gap-3 sm:gap-4 shadow-2xs hover:border-neutral-300 dark:hover:border-neutral-700 transition-all"
             >
               {/* Product Thumbnail */}
-              <div className="relative w-16 h-20 sm:w-18 sm:h-24 rounded-lg overflow-hidden bg-neutral-100 shrink-0">
+              <div className="relative w-16 h-20 sm:w-18 sm:h-24 rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-950 shrink-0 border border-transparent dark:border-neutral-800">
                 {product.image_url ? (
                   <Image
                     src={product.image_url}
@@ -112,7 +112,7 @@ export default async function AdminDashboardPage() {
                     className="object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-[10px] text-neutral-400 font-serif">
+                  <div className="w-full h-full flex items-center justify-center text-[10px] text-neutral-400 dark:text-neutral-500 font-serif">
                     No image
                   </div>
                 )}
@@ -121,28 +121,28 @@ export default async function AdminDashboardPage() {
               {/* Product Info */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5 mb-1">
-                  <span className="text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-600">
+                  <span className="text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300">
                     {product.category}
                   </span>
                 </div>
-                <h3 className="text-sm font-semibold text-neutral-900 truncate leading-snug">
+                <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 truncate leading-snug">
                   {product.title}
                 </h3>
-                <p className="text-xs font-medium text-neutral-700 mt-0.5">
+                <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300 mt-0.5">
                   {formatNaira(product.price)}
                 </p>
                 <div className="flex items-center gap-2 mt-2">
                   <Link
                     href={`/admin/products/${product.id}/edit`}
-                    className="text-[11px] font-semibold text-brand-accent hover:text-brand-accent-hover underline"
+                    className="text-[11px] font-semibold text-brand-accent hover:text-brand-accentHover underline"
                   >
                     Edit details
                   </Link>
-                  <span className="text-neutral-300 text-xs">•</span>
+                  <span className="text-neutral-300 dark:text-neutral-700 text-xs">•</span>
                   <Link
                     href={`/product/${product.id}`}
                     target="_blank"
-                    className="text-[11px] text-neutral-400 hover:text-neutral-600"
+                    className="text-[11px] text-neutral-400 dark:text-neutral-500 hover:text-neutral-600 dark:hover:text-neutral-300"
                   >
                     View in store
                   </Link>

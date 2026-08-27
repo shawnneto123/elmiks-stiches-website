@@ -28,20 +28,20 @@ export function SizeChartModal({ isOpen, onClose }: SizeChartModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-size-guide-title"
     >
       <div
-        className="bg-white rounded-2xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative animate-in zoom-in-95 duration-150"
+        className="bg-white dark:bg-[#141417] rounded-2xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-transparent dark:border-neutral-800 relative animate-in zoom-in-95 duration-150 transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 text-neutral-400 hover:text-neutral-900 p-2 rounded-full hover:bg-neutral-100 transition"
+          className="absolute top-4 right-4 text-neutral-400 hover:text-neutral-900 dark:hover:text-white p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition"
           aria-label="Close modal"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,10 +50,10 @@ export function SizeChartModal({ isOpen, onClose }: SizeChartModalProps) {
         </button>
 
         <div className="mb-6">
-          <h2 id="modal-size-guide-title" className="font-serif text-2xl font-bold text-neutral-900">
+          <h2 id="modal-size-guide-title" className="font-serif text-2xl font-bold text-neutral-900 dark:text-neutral-50">
             Size Guide
           </h2>
-          <p className="text-xs text-neutral-500 mt-1">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
             Compare your measurements against our sizing guide to find the best fit.
           </p>
         </div>

@@ -49,7 +49,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
         {/* Image Gallery */}
         <div className="space-y-3 w-full min-w-0">
           {/* Main Image */}
-          <div className="relative aspect-[3/4] w-full max-w-full overflow-hidden bg-neutral-100 rounded-lg">
+          <div className="relative aspect-[3/4] w-full max-w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900 rounded-lg border border-transparent dark:border-neutral-800/80 transition-colors">
             {allImages.length > 0 ? (
               <Image
                 src={allImages[currentImageIndex]}
@@ -60,7 +60,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                 priority
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-neutral-400 text-sm font-serif italic">
+              <div className="w-full h-full flex items-center justify-center text-neutral-400 dark:text-neutral-500 text-sm font-serif italic">
                 [ {product.title} ]
               </div>
             )}
@@ -74,9 +74,9 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                   key={i}
                   type="button"
                   onClick={() => setCurrentImageIndex(i)}
-                  className={`relative w-16 h-20 sm:w-20 sm:h-24 flex-shrink-0 overflow-hidden bg-neutral-100 transition-all ${
+                  className={`relative w-16 h-20 sm:w-20 sm:h-24 flex-shrink-0 overflow-hidden bg-neutral-100 dark:bg-neutral-900 rounded-md transition-all ${
                     i === currentImageIndex
-                      ? "ring-2 ring-brand-accent ring-offset-2"
+                      ? "ring-2 ring-brand-accent ring-offset-2 ring-offset-white dark:ring-offset-[#0F0F11]"
                       : "opacity-60 hover:opacity-100"
                   }`}
                 >
@@ -96,15 +96,15 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
         {/* Product Details */}
         <div className="space-y-6 lg:sticky lg:top-28 lg:self-start w-full min-w-0">
           {/* Category Breadcrumb */}
-          <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-400">
+          <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-400 dark:text-neutral-500">
             {product.category}
           </span>
 
-          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 leading-tight break-words">
+          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-neutral-50 leading-tight break-words">
             {product.title}
           </h1>
 
-          <p className="text-xl sm:text-2xl font-medium text-neutral-900">
+          <p className="text-xl sm:text-2xl font-medium text-neutral-900 dark:text-neutral-100">
             {formatNaira(product.price)}
           </p>
 
@@ -112,17 +112,17 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           <div className="flex items-center gap-2">
             <span
               className={`inline-block w-2 h-2 rounded-full ${
-                product.in_stock ? "bg-emerald-500" : "bg-neutral-400"
+                product.in_stock ? "bg-emerald-500" : "bg-neutral-400 dark:bg-neutral-600"
               }`}
             />
-            <span className="text-xs font-medium text-neutral-600">
+            <span className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
               {product.in_stock ? "In Stock" : "Currently Out of Stock"}
             </span>
           </div>
 
           {/* Description */}
           {product.description && (
-            <p className="text-sm text-neutral-600 leading-relaxed break-words">
+            <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed break-words font-light">
               {product.description}
             </p>
           )}
@@ -130,13 +130,13 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           {/* Size Selector */}
           <div className="w-full min-w-0">
             <div className="flex items-center justify-between mb-3">
-              <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700">
+              <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
                 Size
               </label>
               <button
                 type="button"
                 onClick={() => setSizeChartOpen(true)}
-                className="text-xs text-neutral-500 hover:text-neutral-900 underline underline-offset-2 transition-colors py-1"
+                className="text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white underline underline-offset-2 transition-colors py-1"
               >
                 Size Guide
               </button>
@@ -149,8 +149,8 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                   onClick={() => handleSizeSelect(size)}
                   className={`min-h-[44px] min-w-[44px] px-4 py-2.5 text-xs font-medium rounded-lg border transition-all flex items-center justify-center ${
                     selectedSize === size
-                      ? "border-neutral-900 bg-neutral-900 text-white"
-                      : "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-400"
+                      ? "border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-neutral-950 font-bold shadow-xs"
+                      : "border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600 hover:text-neutral-900 dark:hover:text-white"
                   }`}
                 >
                   {size}
@@ -162,7 +162,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           {/* Color Selector (if product has colors) */}
           {product.colors.length > 0 && (
             <div className="w-full min-w-0">
-              <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-3 block">
+              <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-3 block">
                 Color — {selectedColor ?? "Select"}
               </label>
               <div className="flex flex-wrap gap-2 w-full">
@@ -176,8 +176,8 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                     }}
                     className={`min-h-[44px] px-4 py-2.5 text-xs font-medium rounded-lg border transition-all flex items-center justify-center ${
                       selectedColor === color
-                        ? "border-neutral-900 bg-neutral-900 text-white"
-                        : "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-400"
+                        ? "border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-neutral-950 font-bold shadow-xs"
+                        : "border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600 hover:text-neutral-900 dark:hover:text-white"
                     }`}
                   >
                     {color}
@@ -189,7 +189,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
 
           {/* Validation Error */}
           {validationError && (
-            <p className="text-xs text-red-600 font-medium">{validationError}</p>
+            <p className="text-xs text-red-600 dark:text-red-400 font-medium">{validationError}</p>
           )}
 
           {/* Order / Restock Button */}
