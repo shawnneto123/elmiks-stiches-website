@@ -55,3 +55,118 @@ body {
   scrollbar-width: none;
 }
 
+/* Luxury Hero Keyframe Animations & GPU Micro-motions */
+@keyframes heroFadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroDrift1 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes heroDrift2 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(14px);
+  }
+}
+
+@keyframes heroDrift3 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes heroDrift4 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(12px);
+  }
+}
+
+@keyframes heroDrift5 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-hero-title {
+  animation: heroFadeSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-hero-subtitle {
+  animation: heroFadeSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.animate-hero-cta {
+  animation: heroFadeSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+}
+
+.animate-hero-pills {
+  animation: heroFadeSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.38s both;
+}
+
+.animate-float-drift-1 {
+  animation: heroDrift1 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-drift-2 {
+  animation: heroDrift2 8.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-drift-3 {
+  animation: heroDrift3 6.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-drift-4 {
+  animation: heroDrift4 9s ease-in-out 1.2s infinite;
+  will-change: transform;
+}
+
+.animate-float-drift-5 {
+  animation: heroDrift5 7.5s ease-in-out 2s infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-title,
+  .animate-hero-subtitle,
+  .animate-hero-cta,
+  .animate-hero-pills,
+  .animate-float-drift-1,
+  .animate-float-drift-2,
+  .animate-float-drift-3,
+  .animate-float-drift-4,
+  .animate-float-drift-5 {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+

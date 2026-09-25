@@ -2,8 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { formatNaira } from "@/lib/utils/currency";
-import { BRAND, CATEGORIES } from "@/lib/constants";
+import { BRAND } from "@/lib/constants";
 import { Product } from "@/lib/types";
+import { Hero } from "@/components/Hero";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -22,52 +23,8 @@ export default async function HomePage() {
 
   return (
     <main className="flex-1 w-full max-w-full overflow-x-hidden">
-      {/* 1. Hero Section */}
-      <section className="relative bg-neutral-50/80 dark:bg-neutral-950/60 border-b border-neutral-100 dark:border-neutral-800/80 py-14 sm:py-20 md:py-28 px-4 sm:px-6 md:px-10 w-full overflow-hidden transition-colors">
-        <div className="max-w-4xl mx-auto text-center space-y-6 w-full min-w-0">
-          <p className="text-xs uppercase tracking-[0.25em] font-semibold text-neutral-500 dark:text-neutral-400">
-            Abuja Atelier &bull; Worldwide Delivery
-          </p>
-
-          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 leading-[1.15] break-words">
-            Contemporary Elegance, <br className="hidden sm:inline" />
-            Tailored to Perfection.
-          </h1>
-
-          <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-light">
-            Discover exquisite Ready-To-Wear collections and bespoke tailoring crafted for modern silhouettes.
-          </p>
-
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full">
-            <Link
-              href="/shop"
-              className="w-full sm:w-auto rounded-full bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 px-8 py-3.5 text-sm font-medium transition shadow-sm text-center"
-            >
-              Shop Collection
-            </Link>
-            <Link
-              href="/custom-order"
-              className="w-full sm:w-auto rounded-full bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-8 py-3.5 text-sm font-medium hover:bg-neutral-50 dark:hover:bg-neutral-800 transition text-center"
-            >
-              Request Custom Outfit
-            </Link>
-          </div>
-
-          {/* Quick Category Chips */}
-          <div className="pt-6 w-full flex items-center justify-start sm:justify-center gap-2 overflow-x-auto scrollbar-none touch-pan-x pb-2">
-            <span className="text-xs text-neutral-400 dark:text-neutral-500 font-medium mr-1 shrink-0">Quick Browse:</span>
-            {CATEGORIES.slice(0, 5).map((cat) => (
-              <Link
-                key={cat}
-                href={`/shop/${encodeURIComponent(cat.toLowerCase())}`}
-                className="shrink-0 min-h-[40px] px-4 py-2 rounded-full bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white border border-neutral-200 dark:border-neutral-800 transition text-xs font-medium flex items-center justify-center active:scale-95 shadow-2xs whitespace-nowrap"
-              >
-                {cat}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 1. Cinematic Luxury Hero Showcase */}
+      <Hero />
 
       {/* 2. Featured Collection — Bento Layout (PRD Section 4.1) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-14 md:py-20 w-full overflow-hidden">
