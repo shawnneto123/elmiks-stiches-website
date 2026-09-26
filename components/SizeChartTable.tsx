@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { SIZES } from "@/lib/constants";
 
 interface SizeRow {
-  size: (typeof SIZES)[number];
+  size: string;
   ukSize: string;
   usSize: string;
   bustIn: string;
@@ -13,85 +12,73 @@ interface SizeRow {
   waistCm: string;
   hipsIn: string;
   hipsCm: string;
-  lengthIn: string;
-  lengthCm: string;
 }
 
-// Standard Nigerian & International RTW fashion measurement matrix
+// Elmik Stitches official RTW size chart (sourced from brand physical chart)
 const SIZE_DATA: SizeRow[] = [
-  {
-    size: "S",
-    ukSize: "8 - 10",
-    usSize: "4 - 6",
-    bustIn: '34" - 36"',
-    bustCm: "86 - 91 cm",
-    waistIn: '27" - 29"',
-    waistCm: "68 - 74 cm",
-    hipsIn: '37" - 39"',
-    hipsCm: "94 - 99 cm",
-    lengthIn: '40" - 58"',
-    lengthCm: "102 - 147 cm",
-  },
   {
     size: "M",
     ukSize: "10 - 12",
     usSize: "6 - 8",
-    bustIn: '37" - 39"',
-    bustCm: "94 - 99 cm",
-    waistIn: '30" - 32"',
-    waistCm: "76 - 81 cm",
-    hipsIn: '40" - 42"',
-    hipsCm: "102 - 107 cm",
-    lengthIn: '41" - 59"',
-    lengthCm: "104 - 150 cm",
+    bustIn: '40"',
+    bustCm: "102 cm",
+    waistIn: '35"',
+    waistCm: "89 cm",
+    hipsIn: '44"',
+    hipsCm: "112 cm",
   },
   {
     size: "L",
-    ukSize: "12 - 14",
-    usSize: "8 - 10",
-    bustIn: '40" - 42"',
-    bustCm: "102 - 107 cm",
-    waistIn: '33" - 35"',
-    waistCm: "84 - 89 cm",
-    hipsIn: '43" - 45"',
-    hipsCm: "109 - 114 cm",
-    lengthIn: '42" - 60"',
-    lengthCm: "107 - 152 cm",
+    ukSize: "14 - 16",
+    usSize: "10 - 12",
+    bustIn: '42"',
+    bustCm: "107 cm",
+    waistIn: '37"',
+    waistCm: "94 cm",
+    hipsIn: '48"',
+    hipsCm: "122 cm",
   },
   {
     size: "XL",
-    ukSize: "14 - 16",
-    usSize: "10 - 12",
-    bustIn: '43" - 45"',
-    bustCm: "109 - 114 cm",
-    waistIn: '36" - 38"',
-    waistCm: "91 - 97 cm",
-    hipsIn: '46" - 48"',
-    hipsCm: "117 - 122 cm",
-    lengthIn: '43" - 61"',
-    lengthCm: "109 - 155 cm",
+    ukSize: "18 - 20",
+    usSize: "14 - 16",
+    bustIn: '45"',
+    bustCm: "114 cm",
+    waistIn: '39"',
+    waistCm: "99 cm",
+    hipsIn: '52"',
+    hipsCm: "132 cm",
   },
   {
     size: "XXL",
-    ukSize: "16 - 18",
-    usSize: "12 - 14",
-    bustIn: '46" - 49"',
-    bustCm: "117 - 124 cm",
-    waistIn: '39" - 42"',
-    waistCm: "99 - 107 cm",
-    hipsIn: '49" - 52"',
-    hipsCm: "124 - 132 cm",
-    lengthIn: '44" - 62"',
-    lengthCm: "112 - 157 cm",
+    ukSize: "22",
+    usSize: "18",
+    bustIn: '48"',
+    bustCm: "122 cm",
+    waistIn: '42"',
+    waistCm: "107 cm",
+    hipsIn: '56"',
+    hipsCm: "142 cm",
+  },
+  {
+    size: "XXXL",
+    ukSize: "24",
+    usSize: "20",
+    bustIn: '50"',
+    bustCm: "127 cm",
+    waistIn: '44"',
+    waistCm: "112 cm",
+    hipsIn: '58"',
+    hipsCm: "147 cm",
   },
 ];
 
 export function SizeChartTable() {
   const [unit, setUnit] = useState<"in" | "cm">("in");
-  const [activeSizeTab, setActiveSizeTab] = useState<(typeof SIZES)[number]>("M");
+  const [activeSizeTab, setActiveSizeTab] = useState<string>("M");
   const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
 
-  const currentSizeRow = SIZE_DATA.find((r) => r.size === activeSizeTab) ?? SIZE_DATA[1];
+  const currentSizeRow = SIZE_DATA.find((r) => r.size === activeSizeTab) ?? SIZE_DATA[0];
 
   return (
     <div className="space-y-6 w-full max-w-full overflow-hidden">
@@ -145,7 +132,8 @@ export function SizeChartTable() {
       <div className={`${viewMode === "table" ? "hidden" : "block"} sm:hidden space-y-4 w-full min-w-0`}>
         {/* Horizontal Size Tabs */}
         <div className="w-full flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none touch-pan-x">
-          {SIZES.map((size) => {
+          {SIZE_DATA.map((row) => {
+            const size = row.size;
             const isActive = activeSizeTab === size;
             return (
               <button
@@ -181,32 +169,25 @@ export function SizeChartTable() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 text-xs w-full">
-            <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-950/70 border border-neutral-100 dark:border-neutral-800 min-w-0">
-              <span className="text-neutral-500 dark:text-neutral-400 block mb-1 truncate">Bust / Chest</span>
+          <div className="grid grid-cols-3 gap-2 text-xs w-full">
+            <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-950/70 border border-neutral-100 dark:border-neutral-800 min-w-0">
+              <span className="text-neutral-500 dark:text-neutral-400 block mb-1 truncate text-[11px]">Bust / Chest</span>
               <strong className="text-sm text-neutral-900 dark:text-neutral-100 block truncate">
                 {unit === "in" ? currentSizeRow.bustIn : currentSizeRow.bustCm}
               </strong>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-950/70 border border-neutral-100 dark:border-neutral-800 min-w-0">
-              <span className="text-neutral-500 dark:text-neutral-400 block mb-1 truncate">Natural Waist</span>
+            <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-950/70 border border-neutral-100 dark:border-neutral-800 min-w-0">
+              <span className="text-neutral-500 dark:text-neutral-400 block mb-1 truncate text-[11px]">Natural Waist</span>
               <strong className="text-sm text-neutral-900 dark:text-neutral-100 block truncate">
                 {unit === "in" ? currentSizeRow.waistIn : currentSizeRow.waistCm}
               </strong>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-950/70 border border-neutral-100 dark:border-neutral-800 min-w-0">
-              <span className="text-neutral-500 dark:text-neutral-400 block mb-1 truncate">Hips</span>
+            <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-950/70 border border-neutral-100 dark:border-neutral-800 min-w-0">
+              <span className="text-neutral-500 dark:text-neutral-400 block mb-1 truncate text-[11px]">Hips</span>
               <strong className="text-sm text-neutral-900 dark:text-neutral-100 block truncate">
                 {unit === "in" ? currentSizeRow.hipsIn : currentSizeRow.hipsCm}
-              </strong>
-            </div>
-
-            <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-950/70 border border-neutral-100 dark:border-neutral-800 min-w-0">
-              <span className="text-neutral-500 dark:text-neutral-400 block mb-1 truncate">Garment Length</span>
-              <strong className="text-sm text-neutral-900 dark:text-neutral-100 block truncate">
-                {unit === "in" ? currentSizeRow.lengthIn : currentSizeRow.lengthCm}
               </strong>
             </div>
           </div>
@@ -225,7 +206,6 @@ export function SizeChartTable() {
                 <th className="py-3.5 px-4">Bust</th>
                 <th className="py-3.5 px-4">Waist</th>
                 <th className="py-3.5 px-4">Hips</th>
-                <th className="py-3.5 px-4">Length</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800">
@@ -244,9 +224,6 @@ export function SizeChartTable() {
                   </td>
                   <td className="py-3.5 px-4 text-neutral-800 dark:text-neutral-200 font-medium">
                     {unit === "in" ? row.hipsIn : row.hipsCm}
-                  </td>
-                  <td className="py-3.5 px-4 text-neutral-800 dark:text-neutral-200 font-medium">
-                    {unit === "in" ? row.lengthIn : row.lengthCm}
                   </td>
                 </tr>
               ))}
