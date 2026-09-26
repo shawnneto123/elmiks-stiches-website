@@ -14,6 +14,7 @@ if (supabaseUrl && !supabaseUrl.includes("your-project-ref")) {
 
 const nextConfig: NextConfig = {
   images: {
+    qualities: [65, 75],
     remotePatterns: [
       {
         protocol: "https",
